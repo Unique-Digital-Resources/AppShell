@@ -1,0 +1,19 @@
+[package]
+name = "app_shell"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+default = []
+async-runtime = ["tokio"]
+
+[dependencies]
+tokio = { version = "1", features = ["rt", "rt-multi-thread", "sync", "time"], optional = true }
+
+[lib]
+name = "app_shell"
+path = "src/lib.rs"
+
+[[bin]]
+name = "app_shell"
+path = "src/main.rs"
