@@ -1,0 +1,3883 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A dependency-free application runtime for Rust.">
+      
+      
+      
+      
+        <link rel="prev" href="../18-public-api-reference/">
+      
+      
+        <link rel="next" href="../20-quick-start/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Error Reference - App Engine</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/css/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#error-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="App Engine" class="md-header__button md-logo" aria-label="App Engine" data-md-component="logo">
+      
+  <img src="../assets/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            App Engine
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Error Reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="deep-orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="deep-orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Unique-Digital-Resources/AppShell" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Unique-Digital-Resources/AppShell
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="App Engine" class="md-nav__button md-logo" aria-label="App Engine" data-md-component="logo">
+      
+  <img src="../assets/images/logo.png" alt="logo">
+
+    </a>
+    App Engine
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Unique-Digital-Resources/AppShell" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Unique-Digital-Resources/AppShell
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-bootstrap-and-lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bootstrap & Lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-context-and-state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context & State
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-commands-and-tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Commands & Tasks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-scheduling-and-communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scheduling & Communication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-history-and-resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    History & Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-services-and-plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services & Plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-domain-engine-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Domain Engine Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-application-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Application Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-handler-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Handler Capabilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-execution-control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Execution Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-persistence-and-serialization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistence & Serialization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-concurrency-and-async/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concurrency & Async
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-communication-reliability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Communication & Reliability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-testing-and-metadata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing & Metadata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-plugin-security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plugin Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-public-api-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Public API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Error Reference
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Error Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-engineerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. EngineError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. EngineError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Helpers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-conversions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From Conversions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-commanderror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. CommandError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. CommandError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-each-occurs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When Each Occurs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-taskerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. TaskError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. TaskError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-each-occurs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When Each Occurs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-resourceerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. ResourceError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. ResourceError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-serviceerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. ServiceError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. ServiceError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-pluginerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. PluginError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. PluginError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-schedulingerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. SchedulingError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. SchedulingError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-historyerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. HistoryError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. HistoryError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-configurationerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. ConfigurationError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. ConfigurationError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-persistenceerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. PersistenceError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. PersistenceError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-conversions_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From Conversions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-serializationerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. SerializationError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. SerializationError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-pluginsecurityerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. PluginSecurityError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. PluginSecurityError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-contexterror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. ContextError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. ContextError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-stateerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. StateError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. StateError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-communicationerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. CommunicationError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15. CommunicationError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-asyncerror-with-async-runtime-feature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. AsyncError (with async-runtime feature)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16. AsyncError (with async-runtime feature)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-conversions_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From Conversions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Handling Patterns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error Handling Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#top-level-error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Top-Level Error Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subsystem-specific-error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Subsystem-Specific Error Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#converting-to-engineerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Converting to EngineError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panic-isolated-errors-phase-24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Panic-Isolated Errors (Phase 24)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detecting-panic-origin-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detecting Panic-Origin Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference-all-error-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference: All Error Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-engineerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. EngineError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. EngineError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Helpers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-conversions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From Conversions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-commanderror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. CommandError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. CommandError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-each-occurs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When Each Occurs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-taskerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. TaskError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. TaskError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-each-occurs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When Each Occurs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-resourceerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. ResourceError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. ResourceError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-serviceerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. ServiceError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. ServiceError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-pluginerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. PluginError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. PluginError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-schedulingerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. SchedulingError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. SchedulingError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-historyerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. HistoryError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. HistoryError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-configurationerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. ConfigurationError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. ConfigurationError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-persistenceerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. PersistenceError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. PersistenceError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-conversions_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From Conversions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-serializationerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. SerializationError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. SerializationError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-pluginsecurityerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. PluginSecurityError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. PluginSecurityError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-contexterror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. ContextError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. ContextError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-stateerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. StateError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. StateError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-communicationerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. CommunicationError
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15. CommunicationError">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-asyncerror-with-async-runtime-feature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. AsyncError (with async-runtime feature)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="16. AsyncError (with async-runtime feature)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variants_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-examples_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-conversions_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From Conversions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Handling Patterns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error Handling Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#top-level-error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Top-Level Error Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subsystem-specific-error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Subsystem-Specific Error Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#converting-to-engineerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Converting to EngineError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panic-isolated-errors-phase-24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Panic-Isolated Errors (Phase 24)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detecting-panic-origin-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detecting Panic-Origin Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference-all-error-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference: All Error Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="error-reference">Error Reference<a class="headerlink" href="#error-reference" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The App Engine has 15 error types. Each subsystem owns its errors. <code>EngineError</code> unifies them for top-level error handling via <code>From</code> impls.</p>
+<pre class="mermaid"><code>flowchart TD
+    E["EngineError&lt;br/&gt;(Top-level — converts from all subsystem errors)"] --&gt; C["CommandError&lt;br/&gt;(Command execution)"]
+    E --&gt; T["TaskError&lt;br/&gt;(Task execution)"]
+    E --&gt; R["ResourceError&lt;br/&gt;(Resource operations)"]
+    E --&gt; S["ServiceError&lt;br/&gt;(Service lifecycle)"]
+    E --&gt; P["PluginError&lt;br/&gt;(Plugin lifecycle/loading)"]
+    E --&gt; SC["SchedulingError&lt;br/&gt;(Scheduling operations)"]
+    E --&gt; H["HistoryError&lt;br/&gt;(History operations)"]
+    E --&gt; CF["ConfigurationError&lt;br/&gt;(Config validation/persistence)"]
+    E --&gt; PE["PersistenceError&lt;br/&gt;(Storage backend)"]
+    E --&gt; SE["SerializationError&lt;br/&gt;(Serialization/deserialization)"]
+    E --&gt; PS["PluginSecurityError&lt;br/&gt;(Permission denial)"]
+    E --&gt; CX["ContextError&lt;br/&gt;(Context operations)"]
+    E --&gt; ST["StateError&lt;br/&gt;(State transitions)"]
+    E --&gt; CO["CommunicationError&lt;br/&gt;(Event handler errors)"]
+    E --&gt; AE["AsyncError&lt;br/&gt;(Async runtime (with async-runtime feature))"]</code></pre>
+<hr />
+<h2 id="1-engineerror">1. EngineError<a class="headerlink" href="#1-engineerror" title="Permanent link">&para;</a></h2>
+<p>The top-level engine error. All subsystem errors convert to <code>EngineError</code> via <code>From</code>.</p>
+<h3 id="variants">Variants<a class="headerlink" href="#variants" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>InvalidLifecycleTransition { from: String, to: String }</code></td>
+<td>Invalid lifecycle state transition.</td>
+</tr>
+<tr>
+<td><code>AlreadyInitialized</code></td>
+<td>Engine is already initialized.</td>
+</tr>
+<tr>
+<td><code>NotInitialized</code></td>
+<td>Engine is not initialized.</td>
+</tr>
+<tr>
+<td><code>AlreadyRunning</code></td>
+<td>Engine is already running.</td>
+</tr>
+<tr>
+<td><code>AlreadyStopped</code></td>
+<td>Engine is already stopped.</td>
+</tr>
+<tr>
+<td><code>AlreadyDisposed</code></td>
+<td>Engine is already disposed.</td>
+</tr>
+<tr>
+<td><code>InitializationFailed(String)</code></td>
+<td>Initialization failed (reason).</td>
+</tr>
+<tr>
+<td><code>StartupFailed(String)</code></td>
+<td>Startup failed (reason).</td>
+</tr>
+<tr>
+<td><code>ShutdownFailed(String)</code></td>
+<td>Shutdown failed (reason).</td>
+</tr>
+<tr>
+<td><code>SubsystemFailure { subsystem: String, reason: String }</code></td>
+<td>A subsystem reported a failure.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="display-examples">Display Examples<a class="headerlink" href="#display-examples" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Invalid lifecycle transition: Created -&gt; Running
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Engine is already initialized
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Initialization failed: database unreachable
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>service subsystem failure: Service 3 failed to start: db error
+</span></code></pre></div>
+<h3 id="helpers">Helpers<a class="headerlink" href="#helpers" title="Permanent link">&para;</a></h3>
+<div class="language-rust highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">EngineError</span><span class="p">::</span><span class="n">invalid_transition</span><span class="p">(</span><span class="s">&quot;Created&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Running&quot;</span><span class="p">)</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">EngineError</span><span class="p">::</span><span class="n">subsystem</span><span class="p">(</span><span class="s">&quot;service&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Service 3 failed to start&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="from-conversions">From Conversions<a class="headerlink" href="#from-conversions" title="Permanent link">&para;</a></h3>
+<div class="language-rust highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">let</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="nc">EngineError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ServiceError</span><span class="p">::</span><span class="n">NotFound</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}.</span><span class="n">into</span><span class="p">();</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kd">let</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="nc">EngineError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PluginError</span><span class="p">::</span><span class="n">NotFound</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}.</span><span class="n">into</span><span class="p">();</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kd">let</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="nc">EngineError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CommandError</span><span class="p">::</span><span class="n">UnknownCommand</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;x&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">()</span><span class="w"> </span><span class="p">}.</span><span class="n">into</span><span class="p">();</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="kd">let</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="nc">EngineError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TaskError</span><span class="p">::</span><span class="n">NotFound</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}.</span><span class="n">into</span><span class="p">();</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="kd">let</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="nc">EngineError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ResourceError</span><span class="p">::</span><span class="n">NotFound</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}.</span><span class="n">into</span><span class="p">();</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="kd">let</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="nc">EngineError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConfigurationError</span><span class="p">::</span><span class="n">NotFound</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;x&quot;</span><span class="p">.</span><span class="n">into</span><span class="p">()</span><span class="w"> </span><span class="p">}.</span><span class="n">into</span><span class="p">();</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="kd">let</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="nc">EngineError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SchedulingError</span><span class="p">::</span><span class="n">JobNotFound</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}.</span><span class="n">into</span><span class="p">();</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="kd">let</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="nc">EngineError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HistoryError</span><span class="p">::</span><span class="n">NoUndoAvailable</span><span class="p">.</span><span class="n">into</span><span class="p">();</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="kd">let</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="nc">EngineError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CommunicationError</span><span class="p">::</span><span class="n">HandlerNotFound</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}.</span><span class="n">into</span><span class="p">();</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="kd">let</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="nc">EngineError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ContextError</span><span class="p">::</span><span class="n">NoApplicationContext</span><span class="p">.</span><span class="n">into</span><span class="p">();</span>
+</span></code></pre></div>
+<h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
+<div class="language-rust highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">do_work</span><span class="p">(</span><span class="n">engine</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">AppEngine</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span><span class="w"> </span><span class="n">EngineError</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">engine</span><span class="p">.</span><span class="n">service_manager_mut</span><span class="p">().</span><span class="n">start_all</span><span class="p">(</span><span class="o">&amp;</span><span class="n">engine</span><span class="p">.</span><span class="n">engine_ref</span><span class="p">())</span><span class="o">?</span><span class="p">;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="c1">// ServiceError auto-converts to EngineError via From impl</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nb">Ok</span><span class="p">(())</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">}</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="k">match</span><span class="w"> </span><span class="n">engine</span><span class="p">.</span><span class="n">initialize</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="nb">Ok</span><span class="p">(())</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{},</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="nb">Err</span><span class="p">(</span><span class="n">EngineError</span><span class="p">::</span><span class="n">AlreadyInitialized</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* continue */</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="nb">Err</span><span class="p">(</span><span class="n">EngineError</span><span class="p">::</span><span class="n">InvalidLifecycleTransition</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">from</span><span class="p">,</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">        </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&quot;Invalid: {} -&gt; {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">from</span><span class="p">,</span><span class="w"> </span><span class="n">to</span><span class="p">);</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="nb">Err</span><span class="p">(</span><span class="n">EngineError</span><span class="p">::</span><span class="n">SubsystemFailure</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">subsystem</span><span class="p">,</span><span class="w"> </span><span class="n">reason</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">        </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&quot;{} failed: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">subsystem</span><span class="p">,</span><span class="w"> </span><span class="n">reason</span><span class="p">);</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span><span class="nb">Err</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&quot;Unexpected: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">),</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h2 id="2-commanderror">2. CommandError<a class="headerlink" href="#2-commanderror" title="Permanent link">&para;</a></h2>
+<p>Command execution errors.</p>
+<h3 id="variants_1">Variants<a class="headerlink" href="#variants_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>UnknownCommand { id: String }</code></td>
+<td>No handler registered for the command.</td>
+</tr>
+<tr>
+<td><code>InvalidArguments(String)</code></td>
+<td>Handler rejected the input.</td>
+</tr>
+<tr>
+<td><code>InvalidState</code></td>
+<td>Command executed in wrong state.</td>
+</tr>
+<tr>
+<td><code>NotAvailable(String)</code></td>
+<td>Command not available (reason).</td>
+</tr>
+<tr>
+<td><code>ExecutionFailed(String)</code></td>
+<td>Handler execution failed.</td>
+</tr>
+<tr>
+<td><code>Cancelled</code></td>
+<td>Command was cancelled.</td>
+</tr>
+<tr>
+<td><code>PermissionDenied(String)</code></td>
+<td>Permission denied (reason).</td>
+</tr>
+<tr>
+<td><code>NoHandler { id: String }</code></td>
+<td>Handler missing (internal inconsistency).</td>
+</tr>
+<tr>
+<td><code>AlreadyRegistered { id: String }</code></td>
+<td>Command already registered.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="display-examples_1">Display Examples<a class="headerlink" href="#display-examples_1" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Unknown command: app.missing
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Invalid arguments: expected String
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Command not available: requires admin
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>Command execution failed: disk full
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>Command cancelled
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>Permission denied: insufficient role
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>No handler registered for command: app.echo
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>Command already registered: app.echo
+</span></code></pre></div>
+<h3 id="when-each-occurs">When Each Occurs<a class="headerlink" href="#when-each-occurs" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Triggered by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>UnknownCommand</code></td>
+<td><code>execute()</code> with unregistered command ID</td>
+</tr>
+<tr>
+<td><code>InvalidArguments</code></td>
+<td>Handler rejects input (wrong type, missing field)</td>
+</tr>
+<tr>
+<td><code>ExecutionFailed</code></td>
+<td>Handler returned <code>Err</code> or panicked (Phase 24)</td>
+</tr>
+<tr>
+<td><code>Cancelled</code></td>
+<td>Command was cancelled</td>
+</tr>
+<tr>
+<td><code>AlreadyRegistered</code></td>
+<td><code>register()</code> with duplicate ID</td>
+</tr>
+<tr>
+<td><code>NoHandler</code></td>
+<td>Internal inconsistency (should not happen)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-taskerror">3. TaskError<a class="headerlink" href="#3-taskerror" title="Permanent link">&para;</a></h2>
+<p>Task execution and lifecycle errors.</p>
+<h3 id="variants_2">Variants<a class="headerlink" href="#variants_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NotFound { id: u64 }</code></td>
+<td>Task not found.</td>
+</tr>
+<tr>
+<td><code>UnknownDefinition { id: String }</code></td>
+<td>Task definition not registered.</td>
+</tr>
+<tr>
+<td><code>InvalidState { id: u64, current: String, requested: String }</code></td>
+<td>Invalid state transition.</td>
+</tr>
+<tr>
+<td><code>NotPausable { id: u64, current: String }</code></td>
+<td>Task doesn't support pause.</td>
+</tr>
+<tr>
+<td><code>NotCancellable { id: u64, current: String }</code></td>
+<td>Task doesn't support cancel.</td>
+</tr>
+<tr>
+<td><code>AlreadyRunning { id: u64 }</code></td>
+<td>Task is already running.</td>
+</tr>
+<tr>
+<td><code>AlreadyCompleted { id: u64 }</code></td>
+<td>Task is already completed.</td>
+</tr>
+<tr>
+<td><code>ExecutionFailed { id: u64, reason: String }</code></td>
+<td>Handler execution failed.</td>
+</tr>
+<tr>
+<td><code>Cancelled { id: u64 }</code></td>
+<td>Task was cancelled.</td>
+</tr>
+<tr>
+<td><code>InvalidDefinition { id: String }</code></td>
+<td>Invalid task definition.</td>
+</tr>
+<tr>
+<td><code>AlreadyRegistered { id: String }</code></td>
+<td>Task definition already registered.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="display-examples_2">Display Examples<a class="headerlink" href="#display-examples_2" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Task not found: 42
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>Unknown task definition: export
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Task 3 invalid state transition: Pending -&gt; Completed
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>Task 5 is not pausable (current: Pending)
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>Task 7 is not cancellable (current: Completed)
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>Task 9 execution failed: disk full
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>Task 11 was cancelled
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>Task definition already registered: render
+</span></code></pre></div>
+<h3 id="when-each-occurs_1">When Each Occurs<a class="headerlink" href="#when-each-occurs_1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Triggered by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NotFound</code></td>
+<td><code>start/pause/resume/cancel</code> with bogus ID</td>
+</tr>
+<tr>
+<td><code>UnknownDefinition</code></td>
+<td><code>create()</code> with unregistered definition</td>
+</tr>
+<tr>
+<td><code>InvalidState</code></td>
+<td><code>start()</code> on a non-Pending task, etc.</td>
+</tr>
+<tr>
+<td><code>NotPausable</code></td>
+<td><code>pause()</code> on a task without pause support</td>
+</tr>
+<tr>
+<td><code>NotCancellable</code></td>
+<td><code>cancel()</code> on a task without cancel support</td>
+</tr>
+<tr>
+<td><code>ExecutionFailed</code></td>
+<td>Handler returned <code>Err</code> or panicked (Phase 24)</td>
+</tr>
+<tr>
+<td><code>AlreadyRegistered</code></td>
+<td><code>register()</code> with duplicate ID</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-resourceerror">4. ResourceError<a class="headerlink" href="#4-resourceerror" title="Permanent link">&para;</a></h2>
+<p>Resource operation errors.</p>
+<h3 id="variants_3">Variants<a class="headerlink" href="#variants_3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NotFound { id: u64 }</code></td>
+<td>Resource not found.</td>
+</tr>
+<tr>
+<td><code>LoaderNotFound { resource_type: String }</code></td>
+<td>No loader for the resource type.</td>
+</tr>
+<tr>
+<td><code>LoadFailed { source: String, reason: String }</code></td>
+<td>Loading failed.</td>
+</tr>
+<tr>
+<td><code>InvalidResource { id: u64 }</code></td>
+<td>Invalid resource.</td>
+</tr>
+<tr>
+<td><code>AlreadyLoaded { id: u64 }</code></td>
+<td>Resource already loaded.</td>
+</tr>
+<tr>
+<td><code>AlreadyReleased { id: u64 }</code></td>
+<td>Resource already released.</td>
+</tr>
+<tr>
+<td><code>UnloadFailed { id: u64, reason: String }</code></td>
+<td>Unload failed.</td>
+</tr>
+<tr>
+<td><code>InvalidHandle { id: u64 }</code></td>
+<td>Invalid resource handle.</td>
+</tr>
+<tr>
+<td><code>NoData { id: u64 }</code></td>
+<td>Resource has no data.</td>
+</tr>
+<tr>
+<td><code>ReloadFailed { id: u64, reason: String }</code></td>
+<td>Reload failed.</td>
+</tr>
+<tr>
+<td><code>InUse { id: u64 }</code></td>
+<td>Resource is in use (can't unload).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="display-examples_3">Display Examples<a class="headerlink" href="#display-examples_3" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Resource not found: 7
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>No loader for resource type: image
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Failed to load resource &#39;file:///missing.png&#39;: file not found
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>Resource 3 is in use and cannot be unloaded
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>Invalid resource handle: 99
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>Failed to reload resource 5: file changed
+</span></code></pre></div>
+<hr />
+<h2 id="5-serviceerror">5. ServiceError<a class="headerlink" href="#5-serviceerror" title="Permanent link">&para;</a></h2>
+<p>Service lifecycle errors.</p>
+<h3 id="variants_4">Variants<a class="headerlink" href="#variants_4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NotFound { id: u64 }</code></td>
+<td>Service not found.</td>
+</tr>
+<tr>
+<td><code>InvalidState { id: u64, current: String, requested: String }</code></td>
+<td>Invalid state transition.</td>
+</tr>
+<tr>
+<td><code>AlreadyRegistered { id: String }</code></td>
+<td>Service already registered.</td>
+</tr>
+<tr>
+<td><code>StartFailed { id: u64, reason: String }</code></td>
+<td>Start failed (including panic — Phase 24).</td>
+</tr>
+<tr>
+<td><code>StopFailed { id: u64, reason: String }</code></td>
+<td>Stop failed (including panic).</td>
+</tr>
+<tr>
+<td><code>InitializeFailed { id: u64, reason: String }</code></td>
+<td>Initialize failed (including panic).</td>
+</tr>
+<tr>
+<td><code>DisposeFailed { id: u64, reason: String }</code></td>
+<td>Dispose failed (including panic).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="display-examples_4">Display Examples<a class="headerlink" href="#display-examples_4" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Service not found: 3
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>Service 3 invalid state transition: Running -&gt; Initialized
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Service already registered: logger
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>Service 5 failed to start: database unreachable
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>Service 7 failed to initialize: service panicked: init crashed!
+</span></code></pre></div>
+<hr />
+<h2 id="6-pluginerror">6. PluginError<a class="headerlink" href="#6-pluginerror" title="Permanent link">&para;</a></h2>
+<p>Plugin lifecycle and loading errors.</p>
+<h3 id="variants_5">Variants<a class="headerlink" href="#variants_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NotFound { id: u64 }</code></td>
+<td>Plugin not found.</td>
+</tr>
+<tr>
+<td><code>InvalidState { id: u64, current: String, requested: String }</code></td>
+<td>Invalid state transition.</td>
+</tr>
+<tr>
+<td><code>AlreadyRegistered { id: String }</code></td>
+<td>Plugin already registered.</td>
+</tr>
+<tr>
+<td><code>LoadFailed { source: String, reason: String }</code></td>
+<td>Loading failed.</td>
+</tr>
+<tr>
+<td><code>InitializeFailed { id: u64, reason: String }</code></td>
+<td>Initialize failed (including panic — Phase 24).</td>
+</tr>
+<tr>
+<td><code>StartFailed { id: u64, reason: String }</code></td>
+<td>Start failed (including panic).</td>
+</tr>
+<tr>
+<td><code>StopFailed { id: u64, reason: String }</code></td>
+<td>Stop failed (including panic).</td>
+</tr>
+<tr>
+<td><code>DisposeFailed { id: u64, reason: String }</code></td>
+<td>Dispose failed (including panic).</td>
+</tr>
+<tr>
+<td><code>DependencyNotMet { id: String, dependency: String }</code></td>
+<td>Dependency not registered.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="display-examples_5">Display Examples<a class="headerlink" href="#display-examples_5" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Plugin not found: 5
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>Plugin 5 invalid state transition: Loaded -&gt; Unloaded
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Plugin already registered: image-plugin
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>Failed to load plugin &#39;image.so&#39;: no suitable loader found
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>Plugin 3 failed to initialize: plugin panicked: init crashed!
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>Plugin &#39;a&#39; requires dependency &#39;b&#39; which is not registered
+</span></code></pre></div>
+<hr />
+<h2 id="7-schedulingerror">7. SchedulingError<a class="headerlink" href="#7-schedulingerror" title="Permanent link">&para;</a></h2>
+<p>Scheduling operation errors.</p>
+<h3 id="variants_6">Variants<a class="headerlink" href="#variants_6" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>JobNotFound { id: u64 }</code></td>
+<td>Job not found.</td>
+</tr>
+<tr>
+<td><code>JobAlreadyCancelled { id: u64 }</code></td>
+<td>Job already cancelled.</td>
+</tr>
+<tr>
+<td><code>JobAlreadyCompleted { id: u64 }</code></td>
+<td>Job already completed.</td>
+</tr>
+<tr>
+<td><code>InvalidState { id: u64, current: String, requested: String }</code></td>
+<td>Invalid state transition.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="display-examples_6">Display Examples<a class="headerlink" href="#display-examples_6" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Job not found: 42
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>Job 42 is already cancelled
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>Job 42 invalid state: Scheduled -&gt; Completed
+</span></code></pre></div>
+<hr />
+<h2 id="8-historyerror">8. HistoryError<a class="headerlink" href="#8-historyerror" title="Permanent link">&para;</a></h2>
+<p>History operation errors.</p>
+<h3 id="variants_7">Variants<a class="headerlink" href="#variants_7" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EntryNotFound { id: u64 }</code></td>
+<td>History entry not found.</td>
+</tr>
+<tr>
+<td><code>NoUndoAvailable</code></td>
+<td>No operations to undo.</td>
+</tr>
+<tr>
+<td><code>NoRedoAvailable</code></td>
+<td>No operations to redo.</td>
+</tr>
+<tr>
+<td><code>TransactionNotActive</code></td>
+<td>No active transaction.</td>
+</tr>
+<tr>
+<td><code>TransactionAlreadyActive</code></td>
+<td>Transaction already active.</td>
+</tr>
+<tr>
+<td><code>ReplayExhausted</code></td>
+<td>Replay entries exhausted.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="display-examples_7">Display Examples<a class="headerlink" href="#display-examples_7" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>History entry not found: 42
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>No undo available
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>No redo available
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>No active transaction
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>Replay entries exhausted
+</span></code></pre></div>
+<hr />
+<h2 id="9-configurationerror">9. ConfigurationError<a class="headerlink" href="#9-configurationerror" title="Permanent link">&para;</a></h2>
+<p>Configuration validation and persistence errors.</p>
+<h3 id="variants_8">Variants<a class="headerlink" href="#variants_8" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ValidationFailed { key: String, reason: String }</code></td>
+<td>Schema validation failed.</td>
+</tr>
+<tr>
+<td><code>NotFound { key: String }</code></td>
+<td>Configuration key not found.</td>
+</tr>
+<tr>
+<td><code>InvalidType { key: String, expected: String, actual: String }</code></td>
+<td>Type mismatch.</td>
+</tr>
+<tr>
+<td><code>LoadFailed { reason: String }</code></td>
+<td>Configuration load failed.</td>
+</tr>
+<tr>
+<td><code>SaveFailed { reason: String }</code></td>
+<td>Configuration save failed.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="display-examples_8">Display Examples<a class="headerlink" href="#display-examples_8" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Configuration validation failed for &#39;worker_count&#39;: value 0 is below minimum 1
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>Configuration key not found: missing
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>Configuration &#39;count&#39; has invalid type: expected integer, got string
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>Configuration load failed: file not found
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>Configuration save failed: permission denied
+</span></code></pre></div>
+<hr />
+<h2 id="10-persistenceerror">10. PersistenceError<a class="headerlink" href="#10-persistenceerror" title="Permanent link">&para;</a></h2>
+<p>Storage backend errors.</p>
+<h3 id="variants_9">Variants<a class="headerlink" href="#variants_9" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IoError { reason: String }</code></td>
+<td>I/O error.</td>
+</tr>
+<tr>
+<td><code>SerializationError { reason: String }</code></td>
+<td>Serialization error.</td>
+</tr>
+<tr>
+<td><code>DeserializationError { reason: String }</code></td>
+<td>Deserialization error.</td>
+</tr>
+<tr>
+<td><code>KeyNotFound { key: String }</code></td>
+<td>Key not found.</td>
+</tr>
+<tr>
+<td><code>BackendNotAvailable</code></td>
+<td>No backend configured.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="display-examples_9">Display Examples<a class="headerlink" href="#display-examples_9" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>I/O error: permission denied
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>Serialization error: invalid format
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>Deserialization error: unexpected EOF
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>Key not found: app.name
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>No persistence backend available
+</span></code></pre></div>
+<h3 id="from-conversions_1">From Conversions<a class="headerlink" href="#from-conversions_1" title="Permanent link">&para;</a></h3>
+<div class="language-rust highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kd">let</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="nc">PersistenceError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">io</span><span class="p">::</span><span class="n">Error</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="o">..</span><span class="p">.).</span><span class="n">into</span><span class="p">();</span>
+</span></code></pre></div>
+<hr />
+<h2 id="11-serializationerror">11. SerializationError<a class="headerlink" href="#11-serializationerror" title="Permanent link">&para;</a></h2>
+<p>Serialization and deserialization errors.</p>
+<h3 id="variants_10">Variants<a class="headerlink" href="#variants_10" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NoSerializer { type_name: String }</code></td>
+<td>No serializer registered for type.</td>
+</tr>
+<tr>
+<td><code>SerializationFailed { type_name: String, reason: String }</code></td>
+<td>Serialization failed.</td>
+</tr>
+<tr>
+<td><code>DeserializationFailed { type_name: String, reason: String }</code></td>
+<td>Deserialization failed.</td>
+</tr>
+<tr>
+<td><code>TypeMismatch { expected: String, actual: String }</code></td>
+<td>Type mismatch during downcast.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="display-examples_10">Display Examples<a class="headerlink" href="#display-examples_10" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>No serializer registered for type: my_domain::ExportInput
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>Failed to serialize my_domain::ExportInput: invalid format
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>Failed to deserialize my_domain::ExportInput: unexpected EOF
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>Type mismatch: expected ExportInput, got unknown
+</span></code></pre></div>
+<hr />
+<h2 id="12-pluginsecurityerror">12. PluginSecurityError<a class="headerlink" href="#12-pluginsecurityerror" title="Permanent link">&para;</a></h2>
+<p>Permission denial errors.</p>
+<h3 id="variants_11">Variants<a class="headerlink" href="#variants_11" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PermissionDenied { plugin_id: String, permission: String }</code></td>
+<td>Plugin lacks required permission.</td>
+</tr>
+<tr>
+<td><code>InsufficientPermissions { plugin_id: String, required: u32, actual: u32 }</code></td>
+<td>Insufficient permissions (bits).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="display-examples_11">Display Examples<a class="headerlink" href="#display-examples_11" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>Plugin &#39;limited&#39; lacks permission: LOAD_RESOURCES
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>Plugin &#39;limited&#39; has insufficient permissions (has 00000001, needs 00000100)
+</span></code></pre></div>
+<hr />
+<h2 id="13-contexterror">13. ContextError<a class="headerlink" href="#13-contexterror" title="Permanent link">&para;</a></h2>
+<p>Context operation errors.</p>
+<h3 id="variants_12">Variants<a class="headerlink" href="#variants_12" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NoApplicationContext</code></td>
+<td>No application context exists.</td>
+</tr>
+<tr>
+<td><code>SessionNotFound</code></td>
+<td>Session not found.</td>
+</tr>
+<tr>
+<td><code>ExecutionNotFound</code></td>
+<td>Execution not found.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="display-examples_12">Display Examples<a class="headerlink" href="#display-examples_12" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>No application context exists
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>Session not found
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>Execution not found
+</span></code></pre></div>
+<hr />
+<h2 id="14-stateerror">14. StateError<a class="headerlink" href="#14-stateerror" title="Permanent link">&para;</a></h2>
+<p>State transition errors.</p>
+<h3 id="variants_13">Variants<a class="headerlink" href="#variants_13" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>StateNotFound</code></td>
+<td>State not found in store.</td>
+</tr>
+<tr>
+<td><code>TransitionMismatch { expected: String, actual: String }</code></td>
+<td>Current state doesn't match <code>from</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="display-examples_13">Display Examples<a class="headerlink" href="#display-examples_13" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>State not found in store
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>State transition mismatch: expected Created, got Running
+</span></code></pre></div>
+<hr />
+<h2 id="15-communicationerror">15. CommunicationError<a class="headerlink" href="#15-communicationerror" title="Permanent link">&para;</a></h2>
+<p>Event handler errors.</p>
+<h3 id="variants_14">Variants<a class="headerlink" href="#variants_14" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HandlerNotFound { id: u64 }</code></td>
+<td>Handler not found.</td>
+</tr>
+<tr>
+<td><code>SubscriptionNotFound { id: u64 }</code></td>
+<td>Signal subscription not found.</td>
+</tr>
+<tr>
+<td><code>AlreadySubscribed { topic: String }</code></td>
+<td>Already subscribed to topic.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="display-examples_14">Display Examples<a class="headerlink" href="#display-examples_14" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Event handler not found: 42
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>Signal subscription not found: 5
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>Already subscribed to: task.completed
+</span></code></pre></div>
+<hr />
+<h2 id="16-asyncerror-with-async-runtime-feature">16. AsyncError (with <code>async-runtime</code> feature)<a class="headerlink" href="#16-asyncerror-with-async-runtime-feature" title="Permanent link">&para;</a></h2>
+<p>Async runtime errors.</p>
+<h3 id="variants_15">Variants<a class="headerlink" href="#variants_15" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RuntimeCreationFailed(String)</code></td>
+<td>Runtime creation failed.</td>
+</tr>
+<tr>
+<td><code>TaskJoinError(String)</code></td>
+<td>Task join failed.</td>
+</tr>
+<tr>
+<td><code>AsyncExecutionFailed(String)</code></td>
+<td>Async execution failed.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="display-examples_15">Display Examples<a class="headerlink" href="#display-examples_15" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>Async runtime creation failed: out of memory
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>Async task join error: task panicked
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>Async execution failed: future returned error
+</span></code></pre></div>
+<h3 id="from-conversions_2">From Conversions<a class="headerlink" href="#from-conversions_2" title="Permanent link">&para;</a></h3>
+<div class="language-rust highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kd">let</span><span class="w"> </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="nc">AsyncError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tokio</span><span class="p">::</span><span class="n">task</span><span class="p">::</span><span class="n">JoinError</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="o">..</span><span class="p">.).</span><span class="n">into</span><span class="p">();</span>
+</span></code></pre></div>
+<hr />
+<h2 id="error-handling-patterns">Error Handling Patterns<a class="headerlink" href="#error-handling-patterns" title="Permanent link">&para;</a></h2>
+<h3 id="top-level-error-handling">Top-Level Error Handling<a class="headerlink" href="#top-level-error-handling" title="Permanent link">&para;</a></h3>
+<div class="language-rust highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="k">use</span><span class="w"> </span><span class="n">app_shell</span><span class="p">::</span><span class="n">app_engine</span><span class="p">::</span><span class="o">*</span><span class="p">;</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">engine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Bootstrap</span><span class="p">::</span><span class="n">create</span><span class="p">()</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="w">        </span><span class="p">.</span><span class="n">unwrap_or_else</span><span class="p">(</span><span class="o">|</span><span class="n">e</span><span class="o">|</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="w">            </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&quot;Bootstrap failed: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">);</span>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="w">            </span><span class="n">std</span><span class="p">::</span><span class="n">process</span><span class="p">::</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="w">        </span><span class="p">});</span>
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">engine</span><span class="p">.</span><span class="n">initialize</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a><span class="w">        </span><span class="k">match</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a><span class="w">            </span><span class="n">EngineError</span><span class="p">::</span><span class="n">AlreadyInitialized</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a><span class="w">                </span><span class="c1">// Continue — already initialized</span>
+</span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a><span class="w">            </span><span class="p">},</span>
+</span><span id="__span-21-15"><a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a><span class="w">            </span><span class="n">EngineError</span><span class="p">::</span><span class="n">SubsystemFailure</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">subsystem</span><span class="p">,</span><span class="w"> </span><span class="n">reason</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-16"><a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a><span class="w">                </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&quot;{} subsystem failed: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">subsystem</span><span class="p">,</span><span class="w"> </span><span class="n">reason</span><span class="p">);</span>
+</span><span id="__span-21-17"><a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a><span class="w">                </span><span class="c1">// A service or plugin failed during initialization</span>
+</span><span id="__span-21-18"><a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a><span class="w">                </span><span class="c1">// Engine continues — panic was caught</span>
+</span><span id="__span-21-19"><a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a><span class="w">            </span><span class="p">},</span>
+</span><span id="__span-21-20"><a id="__codelineno-21-20" name="__codelineno-21-20" href="#__codelineno-21-20"></a><span class="w">            </span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-21-21"><a id="__codelineno-21-21" name="__codelineno-21-21" href="#__codelineno-21-21"></a><span class="w">                </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&quot;Initialization failed: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">);</span>
+</span><span id="__span-21-22"><a id="__codelineno-21-22" name="__codelineno-21-22" href="#__codelineno-21-22"></a><span class="w">                </span><span class="n">std</span><span class="p">::</span><span class="n">process</span><span class="p">::</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span id="__span-21-23"><a id="__codelineno-21-23" name="__codelineno-21-23" href="#__codelineno-21-23"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-21-24"><a id="__codelineno-21-24" name="__codelineno-21-24" href="#__codelineno-21-24"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-21-25"><a id="__codelineno-21-25" name="__codelineno-21-25" href="#__codelineno-21-25"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-21-26"><a id="__codelineno-21-26" name="__codelineno-21-26" href="#__codelineno-21-26"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="subsystem-specific-error-handling">Subsystem-Specific Error Handling<a class="headerlink" href="#subsystem-specific-error-handling" title="Permanent link">&para;</a></h3>
+<div class="language-rust highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1">// Command execution</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="k">match</span><span class="w"> </span><span class="n">engine</span><span class="p">.</span><span class="n">execute_command</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cmd</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* handle result */</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">    </span><span class="nb">Err</span><span class="p">(</span><span class="n">CommandError</span><span class="p">::</span><span class="n">UnknownCommand</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">        </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&quot;No command: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">);</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">    </span><span class="nb">Err</span><span class="p">(</span><span class="n">CommandError</span><span class="p">::</span><span class="n">ExecutionFailed</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="w">        </span><span class="c1">// Could be handler error OR handler panic (Phase 24)</span>
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="w">        </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&quot;Failed: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="p">);</span>
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a><span class="w">    </span><span class="nb">Err</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&quot;{}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">),</span>
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a><span class="p">}</span>
+</span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>
+</span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a><span class="c1">// Task execution</span>
+</span><span id="__span-22-15"><a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a><span class="k">match</span><span class="w"> </span><span class="n">engine</span><span class="p">.</span><span class="n">start_task</span><span class="p">(</span><span class="n">task_id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-22-16"><a id="__codelineno-22-16" name="__codelineno-22-16" href="#__codelineno-22-16"></a><span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* handle result */</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-22-17"><a id="__codelineno-22-17" name="__codelineno-22-17" href="#__codelineno-22-17"></a><span class="w">    </span><span class="nb">Err</span><span class="p">(</span><span class="n">TaskError</span><span class="p">::</span><span class="n">NotFound</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&quot;Task {} not found&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">),</span>
+</span><span id="__span-22-18"><a id="__codelineno-22-18" name="__codelineno-22-18" href="#__codelineno-22-18"></a><span class="w">    </span><span class="nb">Err</span><span class="p">(</span><span class="n">TaskError</span><span class="p">::</span><span class="n">InvalidState</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">current</span><span class="p">,</span><span class="w"> </span><span class="n">requested</span><span class="p">,</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-22-19"><a id="__codelineno-22-19" name="__codelineno-22-19" href="#__codelineno-22-19"></a><span class="w">        </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&quot;Can&#39;t {}: {} -&gt; {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">requested</span><span class="p">,</span><span class="w"> </span><span class="n">current</span><span class="p">,</span><span class="w"> </span><span class="n">requested</span><span class="p">);</span>
+</span><span id="__span-22-20"><a id="__codelineno-22-20" name="__codelineno-22-20" href="#__codelineno-22-20"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-22-21"><a id="__codelineno-22-21" name="__codelineno-22-21" href="#__codelineno-22-21"></a><span class="w">    </span><span class="nb">Err</span><span class="p">(</span><span class="n">TaskError</span><span class="p">::</span><span class="n">ExecutionFailed</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">reason</span><span class="p">,</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-22-22"><a id="__codelineno-22-22" name="__codelineno-22-22" href="#__codelineno-22-22"></a><span class="w">        </span><span class="c1">// Could be handler error OR handler panic (Phase 24)</span>
+</span><span id="__span-22-23"><a id="__codelineno-22-23" name="__codelineno-22-23" href="#__codelineno-22-23"></a><span class="w">        </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&quot;Failed: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">reason</span><span class="p">);</span>
+</span><span id="__span-22-24"><a id="__codelineno-22-24" name="__codelineno-22-24" href="#__codelineno-22-24"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-22-25"><a id="__codelineno-22-25" name="__codelineno-22-25" href="#__codelineno-22-25"></a><span class="w">    </span><span class="nb">Err</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&quot;{}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">),</span>
+</span><span id="__span-22-26"><a id="__codelineno-22-26" name="__codelineno-22-26" href="#__codelineno-22-26"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="converting-to-engineerror">Converting to EngineError<a class="headerlink" href="#converting-to-engineerror" title="Permanent link">&para;</a></h3>
+<div class="language-rust highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">fn</span><span class="w"> </span><span class="nf">do_work</span><span class="p">(</span><span class="n">engine</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">AppEngine</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="p">(),</span><span class="w"> </span><span class="n">EngineError</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">    </span><span class="c1">// All subsystem errors auto-convert via From</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">    </span><span class="n">engine</span><span class="p">.</span><span class="n">service_manager_mut</span><span class="p">().</span><span class="n">start_all</span><span class="p">(</span><span class="o">&amp;</span><span class="n">engine</span><span class="p">.</span><span class="n">engine_ref</span><span class="p">())</span><span class="o">?</span><span class="p">;</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">    </span><span class="c1">// ServiceError → EngineError::SubsystemFailure</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="w">    </span><span class="n">engine</span><span class="p">.</span><span class="n">execute_command</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cmd</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="w">    </span><span class="c1">// CommandError → EngineError::SubsystemFailure</span>
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="w">    </span><span class="n">engine</span><span class="p">.</span><span class="n">start_task</span><span class="p">(</span><span class="n">task_id</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a><span class="w">    </span><span class="c1">// TaskError → EngineError::SubsystemFailure</span>
+</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>
+</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a><span class="w">    </span><span class="nb">Ok</span><span class="p">(())</span>
+</span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="panic-isolated-errors-phase-24">Panic-Isolated Errors (Phase 24)<a class="headerlink" href="#panic-isolated-errors-phase-24" title="Permanent link">&para;</a></h3>
+<p>When a handler panics, the error message contains <code>"handler panicked: "</code> prefix:</p>
+<div class="language-rust highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1">// Task handler panic → TaskError::ExecutionFailed</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="c1">// Message: &quot;handler panicked: task handler crashed!&quot;</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="c1">// Command handler panic → CommandError::ExecutionFailed</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="c1">// Message: &quot;handler panicked: command handler crashed!&quot;</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="c1">// Service lifecycle panic → ServiceError::*Failed</span>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="c1">// Message: &quot;service panicked: service init crashed!&quot;</span>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="c1">// Plugin lifecycle panic → PluginError::*Failed</span>
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="c1">// Message: &quot;plugin panicked: plugin init crashed!&quot;</span>
+</span></code></pre></div>
+<h3 id="detecting-panic-origin-errors">Detecting Panic-Origin Errors<a class="headerlink" href="#detecting-panic-origin-errors" title="Permanent link">&para;</a></h3>
+<div class="language-rust highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="k">match</span><span class="w"> </span><span class="n">engine</span><span class="p">.</span><span class="n">start_task</span><span class="p">(</span><span class="n">task_id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">    </span><span class="nb">Err</span><span class="p">(</span><span class="n">TaskError</span><span class="p">::</span><span class="n">ExecutionFailed</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">reason</span><span class="p">,</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">reason</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="s">&quot;handler panicked&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="w">        </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&quot;Handler panicked: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">reason</span><span class="p">);</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="w">        </span><span class="c1">// Can retry, log, or escalate</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="w">    </span><span class="nb">Err</span><span class="p">(</span><span class="n">TaskError</span><span class="p">::</span><span class="n">ExecutionFailed</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">reason</span><span class="p">,</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="w">        </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&quot;Handler failed: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">reason</span><span class="p">);</span>
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="w">    </span><span class="nb">Err</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&quot;{}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">),</span>
+</span><span id="__span-25-11"><a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h2 id="quick-reference-all-error-types">Quick Reference: All Error Types<a class="headerlink" href="#quick-reference-all-error-types" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Error Type</th>
+<th>Owned By</th>
+<th>Subsystem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EngineError</code></td>
+<td>App Engine</td>
+<td>Top-level</td>
+</tr>
+<tr>
+<td><code>CommandError</code></td>
+<td>Commands</td>
+<td>Command execution</td>
+</tr>
+<tr>
+<td><code>TaskError</code></td>
+<td>Tasks</td>
+<td>Task execution</td>
+</tr>
+<tr>
+<td><code>ResourceError</code></td>
+<td>Resources</td>
+<td>Resource operations</td>
+</tr>
+<tr>
+<td><code>ServiceError</code></td>
+<td>Services</td>
+<td>Service lifecycle</td>
+</tr>
+<tr>
+<td><code>PluginError</code></td>
+<td>Plugins</td>
+<td>Plugin lifecycle</td>
+</tr>
+<tr>
+<td><code>SchedulingError</code></td>
+<td>Scheduling</td>
+<td>Job operations</td>
+</tr>
+<tr>
+<td><code>HistoryError</code></td>
+<td>History</td>
+<td>Undo/redo/replay</td>
+</tr>
+<tr>
+<td><code>ConfigurationError</code></td>
+<td>Configuration</td>
+<td>Config validation</td>
+</tr>
+<tr>
+<td><code>PersistenceError</code></td>
+<td>Persistence</td>
+<td>Storage backend</td>
+</tr>
+<tr>
+<td><code>SerializationError</code></td>
+<td>Serialization</td>
+<td>Serializer</td>
+</tr>
+<tr>
+<td><code>PluginSecurityError</code></td>
+<td>Plugins</td>
+<td>Permission enforcement</td>
+</tr>
+<tr>
+<td><code>ContextError</code></td>
+<td>Context</td>
+<td>Context creation</td>
+</tr>
+<tr>
+<td><code>StateError</code></td>
+<td>State</td>
+<td>State transitions</td>
+</tr>
+<tr>
+<td><code>CommunicationError</code></td>
+<td>Events/Signals</td>
+<td>Handler/subscription</td>
+</tr>
+<tr>
+<td><code>AsyncError</code></td>
+<td>Concurrency</td>
+<td>Async runtime (feature)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../18-public-api-reference/">18-public-api-reference.md</a> — Complete public API reference.</li>
+<li><a href="../20-quick-start/">20-quick-start.md</a> — 5-minute getting started guide.</li>
+<li><a href="../02-architecture/">02-architecture.md</a> — Architecture and error ownership.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "navigation.tracking", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

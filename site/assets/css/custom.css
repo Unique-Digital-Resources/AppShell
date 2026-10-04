@@ -1,0 +1,398 @@
+/* =========================================================
+   Modern Rust Docs Theme (Flat & Clean)
+   ========================================================= */
+
+/* ---------- CSS Variables ---------- */
+:root {
+  /* Rust Brand Colors */
+  --rust-primary: #ce422b;
+  --rust-accent: #ff7043;
+  --rust-bg: #ffffff;
+  --rust-surface: #f8f9fa;
+  --rust-text: #1f1f1f;
+  --rust-muted: #5c5c5c;
+  --rust-border: #dee2e6;
+  --rust-code-bg: #f6f8fa;
+  
+  /* Consistent Radii */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+}
+
+[data-md-color-scheme="slate"] {
+  --rust-primary: #ff7043;
+  --rust-accent: #ff7043;
+  --rust-bg: #1e1e1e;
+  --rust-surface: #252525;
+  --rust-text: #e0e0e0;
+  --rust-muted: #a0a0a0;
+  --rust-border: #333333;
+  --rust-code-bg: #2b2b2b;
+}
+
+/* ---------- Global Overrides ---------- */
+body {
+  font-family: "Fira Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  background-color: var(--rust-bg);
+  color: var(--rust-text);
+}
+
+/* ---------- Header / Top Bar ---------- */
+.md-header {
+  background-color: var(--rust-primary);
+  box-shadow: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.md-header__title {
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+}
+
+/* ---------- Search Box (Fixed Conflicts) ---------- */
+.md-search__inner {
+  margin: 0;
+}
+
+.md-search__input {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-sm); /* Flat, consistent corners */
+  color: #ffffff;
+  font-family: "Fira Sans", sans-serif;
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.md-search__input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.md-search__input:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ---------- Sidebar (Flattened) ---------- */
+.md-sidebar {
+  background-color: var(--rust-surface);
+  border-right: 1px solid var(--rust-border);
+  box-shadow: none;
+}
+
+.md-sidebar__scrollwrap {
+  padding: 0.5rem 0;
+}
+
+.md-nav {
+  font-size: 0.85rem;
+}
+
+.md-nav__title {
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--rust-text);
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+}
+
+.md-nav__item {
+  margin: 0;
+}
+
+.md-nav__link {
+  border-radius: 0;
+  padding: 0.4rem 1rem;
+  transition: background 0.15s ease, color 0.15s ease;
+  color: var(--rust-muted);
+  border-left: 3px solid transparent;
+  margin-left: -3px;
+}
+
+.md-nav__link:hover {
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--rust-text);
+}
+
+[data-md-color-scheme="slate"] .md-nav__link:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.md-nav__link--active,
+.md-nav__link--passed {
+  color: var(--rust-primary);
+  font-weight: 500;
+  background: transparent;
+}
+
+.md-nav__link--active {
+  border-left: 3px solid var(--rust-primary);
+}
+
+/* ---------- Main Content Area (Removed floating box) ---------- */
+.md-main__inner {
+  margin-top: 0;
+}
+
+.md-content {
+  background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0 1.5rem;
+  margin: 0;
+}
+
+.md-content__inner {
+  padding: 1.5rem 0;
+  margin: 0;
+}
+
+/* ---------- Typography ---------- */
+.md-typeset {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--rust-text);
+}
+
+.md-typeset h1 {
+  font-weight: 600;
+  font-size: 1.9rem;
+  color: var(--rust-text);
+  border-bottom: 1px solid var(--rust-border);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.md-typeset h2 {
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: var(--rust-text);
+  margin-top: 2rem;
+  border-left: none;
+  border-bottom: 1px solid var(--rust-border);
+  padding-bottom: 0.3rem;
+}
+
+.md-typeset h3 {
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: var(--rust-primary);
+  margin-top: 1.5rem;
+}
+
+.md-typeset h4 {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--rust-text);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* ---------- Links ---------- */
+.md-typeset a {
+  color: var(--rust-primary);
+  text-decoration: none;
+  border-bottom: none;
+  transition: color 0.15s ease;
+}
+
+.md-typeset a:hover {
+  color: var(--rust-accent);
+  text-decoration: underline;
+}
+
+/* ---------- Code Blocks (Clean & Flat) ---------- */
+.md-typeset code {
+  background-color: var(--rust-code-bg);
+  color: var(--rust-text);
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85em;
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  border: 1px solid var(--rust-border);
+}
+
+.md-typeset pre {
+  background-color: var(--rust-code-bg) !important;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--rust-border);
+  box-shadow: none;
+  padding: 0.8rem 1rem;
+  margin: 1rem 0;
+}
+
+.md-typeset pre > code {
+  background: transparent !important;
+  border: none;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  padding: 0;
+}
+
+.md-clipboard {
+  color: var(--rust-muted);
+  transition: color 0.15s ease;
+}
+
+.md-clipboard:hover {
+  color: var(--rust-primary);
+}
+
+/* ---------- Admonitions (Flat Borders) ---------- */
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--rust-primary);
+  border-top: 1px solid var(--rust-border);
+  border-right: 1px solid var(--rust-border);
+  border-bottom: 1px solid var(--rust-border);
+  box-shadow: none;
+  margin: 1rem 0;
+  background-color: var(--rust-bg);
+}
+
+.md-typeset .admonition-title,
+.md-typeset summary {
+  background: transparent;
+  color: var(--rust-text);
+  font-weight: 600;
+  border-bottom: 1px solid var(--rust-border);
+  padding: 0.5rem 1rem;
+}
+
+.md-typeset .admonition-note { border-left-color: #2196f3; }
+.md-typeset .admonition-warning { border-left-color: #ff9800; }
+.md-typeset .admonition-danger { border-left-color: #f44336; }
+.md-typeset .admonition-tip { border-left-color: #4caf50; }
+
+/* ---------- Tables ---------- */
+.md-typeset table:not([class]) {
+  border: 1px solid var(--rust-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: none;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.md-typeset table:not([class]) th {
+  background: var(--rust-surface);
+  color: var(--rust-text);
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 0.85rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--rust-border);
+}
+
+.md-typeset table:not([class]) td {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--rust-border);
+  font-size: 0.85rem;
+}
+
+.md-typeset table:not([class]) tr:hover td {
+  background: var(--rust-surface);
+}
+
+.md-typeset table:not([class]) tr:last-child td {
+  border-bottom: none;
+}
+
+/* ---------- Tabs ---------- */
+.md-typeset .tabbed-set {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--rust-border);
+  margin: 1rem 0;
+  box-shadow: none;
+}
+
+.md-typeset .tabbed-labels {
+  background: var(--rust-surface);
+  border-bottom: 1px solid var(--rust-border);
+}
+
+.md-typeset .tabbed-labels > label {
+  font-weight: 500;
+  color: var(--rust-muted);
+  padding: 0.5rem 1rem;
+  border-bottom: 2px solid transparent;
+}
+
+.md-typeset .tabbed-labels > label:hover {
+  color: var(--rust-primary);
+  background: transparent;
+}
+
+.md-typeset .tabbed-labels > label.tabbed-active {
+  color: var(--rust-primary);
+  border-bottom: 2px solid var(--rust-primary);
+}
+
+/* ---------- Footer ---------- */
+.md-footer {
+  background: var(--rust-surface);
+  color: var(--rust-text);
+  border-top: 1px solid var(--rust-border);
+}
+
+.md-footer-meta {
+  background: transparent;
+}
+
+.md-footer-meta a {
+  color: var(--rust-muted);
+}
+
+.md-footer-meta a:hover {
+  color: var(--rust-primary);
+}
+
+/* ---------- Back-to-top button ---------- */
+.md-top {
+  background: var(--rust-primary);
+  color: #fff;
+  border-radius: 50px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+/* ---------- Scrollbar (Subtle & Flat) ---------- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--rust-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--rust-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--rust-muted);
+}
+
+/* ---------- Print Cleanup ---------- */
+@media print {
+  .md-sidebar,
+  .md-header,
+  .md-footer,
+  .md-top,
+  .md-clipboard {
+    display: none !important;
+  }
+  .md-content {
+    padding: 0;
+  }
+}
