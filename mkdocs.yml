@@ -1,0 +1,132 @@
+site_name: App Engine
+site_description: A dependency-free application runtime for Rust.
+# site_url: https://YOUR_USERNAME.github.io/AppShell/
+
+repo_name: Unique-Digital-Resources/AppShell
+repo_url: https://github.com/Unique-Digital-Resources/AppShell
+
+docs_dir: md_docs
+
+theme:
+  name: material
+  logo: assets/images/logo.png
+  favicon: assets/images/favicon.png
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.tracking
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+  palette:
+    - scheme: default
+      primary: red
+      accent: deep orange
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: red
+      accent: deep orange
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Fira Sans
+    code: JetBrains Mono
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Overview: 01-overview.md
+      - Architecture: 02-architecture.md
+      - Bootstrap & Lifecycle: 03-bootstrap-and-lifecycle.md
+      - Context & State: 04-context-and-state.md
+      - Commands & Tasks: 05-commands-and-tasks.md
+      - Scheduling & Communication: 06-scheduling-and-communication.md
+      - History & Resources: 07-history-and-resources.md
+      - Services & Plugins: 08-services-and-plugins.md
+      - Domain Engine Integration: 09-domain-engine-integration.md
+      - Application Integration: 10-application-integration.md
+  - Advanced:
+      - Handler Capabilities: 11-handler-capabilities.md
+      - Execution Control: 12-execution-control.md
+      - Persistence & Serialization: 13-persistence-and-serialization.md
+      - Concurrency & Async: 14-concurrency-and-async.md
+      - Communication & Reliability: 15-communication-reliability.md
+      - Testing & Metadata: 16-testing-and-metadata.md
+      - Plugin Security: 17-plugin-security.md
+  - Reference:
+      - Public API: 18-public-api-reference.md
+      - Error Reference: 19-error-reference.md
+      - Quick Start: 20-quick-start.md
+
+extra_css:
+  - assets/css/custom.css
+
+plugins:
+  - search
+
+markdown_extensions:
+  # --- Python Markdown (core) ---
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - sane_lists
+  - toc:
+      permalink: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+
+  # --- PyMdown: code & fences (order matters) ---
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+
+  # --- PyMdown: content blocks & details ---
+  - pymdownx.details
+
+  # --- PyMdown: inline formatting ---
+  - pymdownx.betterem
+  - pymdownx.caret            # ^^superscript^^ / ^insert^
+  - pymdownx.mark             # ==highlight==
+  - pymdownx.tilde            # ~~subscript~~ / ~~strikethrough~~
+  - pymdownx.keys             # ++ctrl+c++
+  - pymdownx.smartsymbols     # (c) -> © , -> ->  etc.
+
+  # --- PyMdown: lists ---
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+  # --- PyMdown: snippets & math ---
+  - pymdownx.snippets
+  - pymdownx.arithmatex:
+      generic: true
+
+  # --- PyMdown: emoji ---
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+# Required for pymdownx.arithmatex (generic: true) — loads MathJax
+extra_javascript:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
