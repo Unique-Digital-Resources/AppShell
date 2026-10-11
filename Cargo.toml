@@ -6,9 +6,20 @@ edition = "2021"
 [features]
 default = []
 async-runtime = ["tokio"]
+serde = ["dep:serde"]
+
+[dev-dependencies]
+criterion = { version = "0.8.2", features = ["html_reports"] }
+proptest = "1"
+serde_json = "1"
+
+[[bench]]
+name = "domain_foundation_bench"
+harness = false
 
 [dependencies]
 tokio = { version = "1", features = ["rt", "rt-multi-thread", "sync", "time"], optional = true }
+serde = { version = "1", features = ["derive"], optional = true }
 
 [lib]
 name = "app_shell"
@@ -17,3 +28,15 @@ path = "src/lib.rs"
 [[bin]]
 name = "app_shell"
 path = "src/main.rs"
+
+# Integration test suites organised into subdirectories.
+# Each entry point lives at <suite>/main.rs and declares its submodules
+# as sibling .rs files inside the same directory.
+
+[[test]]
+name = "app_engine_tests"
+path = "tests/app_engine_tests/main.rs"
+
+[[test]]
+name = "domain_foundation_tests"
+path = "tests/domain_foundation_tests/main.rs"

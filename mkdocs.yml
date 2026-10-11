@@ -1,6 +1,5 @@
-site_name: App Engine
-site_description: A dependency-free application runtime for Rust.
-# site_url: https://YOUR_USERNAME.github.io/AppShell/
+site_name: AppShell
+site_description: A dependency-free application runtime and domain foundation for Rust.
 
 repo_name: Unique-Digital-Resources/AppShell
 repo_url: https://github.com/Unique-Digital-Resources/AppShell
@@ -41,29 +40,61 @@ theme:
 
 nav:
   - Home: index.md
-  - Getting Started:
-      - Overview: 01-overview.md
-      - Architecture: 02-architecture.md
-      - Bootstrap & Lifecycle: 03-bootstrap-and-lifecycle.md
-      - Context & State: 04-context-and-state.md
-      - Commands & Tasks: 05-commands-and-tasks.md
-      - Scheduling & Communication: 06-scheduling-and-communication.md
-      - History & Resources: 07-history-and-resources.md
-      - Services & Plugins: 08-services-and-plugins.md
-      - Domain Engine Integration: 09-domain-engine-integration.md
-      - Application Integration: 10-application-integration.md
-  - Advanced:
-      - Handler Capabilities: 11-handler-capabilities.md
-      - Execution Control: 12-execution-control.md
-      - Persistence & Serialization: 13-persistence-and-serialization.md
-      - Concurrency & Async: 14-concurrency-and-async.md
-      - Communication & Reliability: 15-communication-reliability.md
-      - Testing & Metadata: 16-testing-and-metadata.md
-      - Plugin Security: 17-plugin-security.md
-  - Reference:
-      - Public API: 18-public-api-reference.md
-      - Error Reference: 19-error-reference.md
-      - Quick Start: 20-quick-start.md
+  - App Engine:
+      - Overview: app_engine_docs/01-overview.md
+      - Architecture: app_engine_docs/02-architecture.md
+      - Bootstrap & Lifecycle: app_engine_docs/03-bootstrap-and-lifecycle.md
+      - Context & State: app_engine_docs/04-context-and-state.md
+      - Commands & Tasks: app_engine_docs/05-commands-and-tasks.md
+      - Scheduling & Communication: app_engine_docs/06-scheduling-and-communication.md
+      - History & Resources: app_engine_docs/07-history-and-resources.md
+      - Services & Plugins: app_engine_docs/08-services-and-plugins.md
+      - Domain Engine Integration: app_engine_docs/09-domain-engine-integration.md
+      - Application Integration: app_engine_docs/10-application-integration.md
+      - Handler Capabilities: app_engine_docs/11-handler-capabilities.md
+      - Execution Control: app_engine_docs/12-execution-control.md
+      - Persistence & Serialization: app_engine_docs/13-persistence-and-serialization.md
+      - Concurrency & Async: app_engine_docs/14-concurrency-and-async.md
+      - Communication & Reliability: app_engine_docs/15-communication-reliability.md
+      - Testing & Metadata: app_engine_docs/16-testing-and-metadata.md
+      - Plugin Security: app_engine_docs/17-plugin-security.md
+      - Public API: app_engine_docs/18-public-api-reference.md
+      - Error Reference: app_engine_docs/19-error-reference.md
+      - Quick Start: app_engine_docs/20-quick-start.md
+  - Domain Foundation:
+      - Overview: domain_docs/01-overview.md
+      - Architecture: domain_docs/02-architecture.md
+      - Environments: domain_docs/03-environments.md
+      - Canvas2D: domain_docs/04-canvas-2d.md
+      - Timeline: domain_docs/05-timeline.md
+      - Layers: domain_docs/06-layers.md
+      - NodeGraph: domain_docs/07-node-graph.md
+      - Viewport3D: domain_docs/08-viewport-3d.md
+      - Table: domain_docs/09-table.md
+      - TextEditor: domain_docs/10-text-editor.md
+      - Relations: domain_docs/11-relations.md
+      - Utilities: domain_docs/12-utilities.md
+      - Domain Engine Integration: domain_docs/13-domain-engine-integration.md
+      - App Engine Integration: domain_docs/14-app-engine-integration.md
+      - Operations & Undo: domain_docs/15-operations-and-undo.md
+      - Serialization: domain_docs/16-serialization.md
+      - Testing: domain_docs/17-testing.md
+      - Public API Reference: domain_docs/18-public-api-reference.md
+      - Error Reference: domain_docs/19-error-reference.md
+      - Quick Start: domain_docs/20-quick-start.md
+      - Guides:
+          - Creating a New Environment: domain_docs/guides/01-creating-environment.md
+          - Adding Operations & Undo: domain_docs/guides/02-adding-operations.md
+          - Creating a New Utility: domain_docs/guides/03-creating-utility.md
+          - Creating Relation Definitions: domain_docs/guides/04-creating-relations.md
+          - Creating Command Handlers: domain_docs/guides/05-command-handlers.md
+          - Composition Patterns: domain_docs/guides/06-composition-patterns.md
+          - Adding Serde Support: domain_docs/guides/07-adding-serde.md
+          - Writing Tests: domain_docs/guides/08-writing-tests.md
+          - Integrating with DomainEngine: domain_docs/guides/09-domain-engine-integration.md
+          - Cross-Environment Operations: domain_docs/guides/10-cross-environment-ops.md
+          - Performance Guide: domain_docs/guides/11-performance.md
+          - Migration Guide: domain_docs/guides/12-migration.md
 
 extra_css:
   - assets/css/custom.css
@@ -72,7 +103,6 @@ plugins:
   - search
 
 markdown_extensions:
-  # --- Python Markdown (core) ---
   - abbr
   - admonition
   - attr_list
@@ -86,8 +116,6 @@ markdown_extensions:
       slugify: !!python/object/apply:pymdownx.slugs.slugify
         kwds:
           case: lower
-
-  # --- PyMdown: code & fences (order matters) ---
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -100,33 +128,22 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
-
-  # --- PyMdown: content blocks & details ---
   - pymdownx.details
-
-  # --- PyMdown: inline formatting ---
   - pymdownx.betterem
-  - pymdownx.caret            # ^^superscript^^ / ^insert^
-  - pymdownx.mark             # ==highlight==
-  - pymdownx.tilde            # ~~subscript~~ / ~~strikethrough~~
-  - pymdownx.keys             # ++ctrl+c++
-  - pymdownx.smartsymbols     # (c) -> © , -> ->  etc.
-
-  # --- PyMdown: lists ---
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.keys
+  - pymdownx.smartsymbols
   - pymdownx.tasklist:
       custom_checkbox: true
-
-  # --- PyMdown: snippets & math ---
   - pymdownx.snippets
   - pymdownx.arithmatex:
       generic: true
-
-  # --- PyMdown: emoji ---
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
-# Required for pymdownx.arithmatex (generic: true) — loads MathJax
 extra_javascript:
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
