@@ -4,7 +4,8 @@ https://unique-digital-resources.github.io/AppShell-Documentation/
 
 ---
 
-**Warning**: It is still in the early stages of development.
+# Warning: 
+**It is still in the early stages of development.**
 
 ---
 
