@@ -4,6 +4,10 @@ https://unique-digital-resources.github.io/AppShell-Documentation/
 
 ---
 
+**Warning**: It is still in the early stages of development.
+
+---
+
 <p align="center">
   <h1 align="center">⚙️ AppShell</h1>
   <p align="center">
