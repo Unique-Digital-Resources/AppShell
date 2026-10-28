@@ -8,14 +8,15 @@ An **Environment** is a reusable, headless model for a particular kind of domain
 
 ```mermaid
 flowchart TD
-    ENV[Environment<br/>(category, not a trait)]
-    ENV --> C2D[Canvas2D<br/>2D spatial]
-    ENV --> TLM[Timeline<br/>temporal]
-    ENV --> LYR[Layers<br/>hierarchy]
-    ENV --> NG[NodeGraph<br/>graph + Canvas2D]
-    ENV --> V3D[Viewport3D<br/>3D spatial]
-    ENV --> TBL[Table<br/>tabular]
-    ENV --> TXT[TextEditor<br/>text]
+    ENV["Environment<br/>(category, not a trait)"]
+    ENV --> C2D["Canvas2D<br/>2D spatial"]
+    ENV --> TLM["Timeline<br/>temporal"]
+    ENV --> LYR["Layers<br/>hierarchy"]
+    ENV --> NG["NodeGraph<br/>graph + Canvas2D"]
+    ENV --> V3D["Viewport3D<br/>3D spatial"]
+    ENV --> TBL["Table<br/>tabular"]
+    ENV --> TXT["TextEditor<br/>text"]
+    ENV --> DCK["Docking<br/>dockable layouts"]
 ```
 
 | Environment | Key Types | Operations | Key Queries |
@@ -27,6 +28,7 @@ flowchart TD
 | **Viewport3D** | `Scene`, `Object3D`, `Transform3D`, `Vec3` | Create, Move, Rotate, Scale, Transform, Remove, SetParent, Clear | `objects_in_bounds`, `children`, `root_objects`, `world_transform` |
 | **Table** | `Table`, `Row`, `Column`, `CellId`, `CellValue` | InsertRow/Column, SetCellValue, ClearCell, MoveRow/Column, Rename, MergeCells, UnmergeCells, ClearTable | `swap_rows/columns`, `is_merged`, `master_cell` |
 | **TextEditor** | `Document`, `Position`, `Range` | Insert, Delete, Replace, Clear, Append, DeleteLine, ReplaceLine | `find`, `find_all`, `replace_all`, `line_count`, `line_col_at`, `byte_count`, `lines()` |
+| **Docking** | `DockLayout`, `Dock`, `DockId`, `DockRole`, `DockSlot` | CreatePanel, CreateEmbedHost, InsertBeside, TabJoin, ReorderTab, SetActiveTab, Remove, ResizeSiblings, SetDockCollapsed, Embed, PromoteHost, ResizeRegion, SetFloatingRect | `placement`, `path`, `descendants`, `is_descendant`, `validate`, `normalize`, `depth` |
 
 ---
 
@@ -87,7 +89,8 @@ Environment (category, not a trait)
    ├── NodeGraph       (NodeGraph, NodeGraphError, NodeGraphOperation, NodeGraphOutcome)
    ├── Viewport3D     (Scene, Viewport3DError, Viewport3DOperation, Viewport3DOutcome)
    ├── Table           (Table, TableError, TableOperation, TableOutcome)
-   └── TextEditor     (Document, TextEditorError, TextEditorOperation, TextEditorOutcome)
+   ├── TextEditor     (Document, TextEditorError, TextEditorOperation, TextEditorOutcome)
+   └── Docking         (DockLayout, DockingError, DockingOperation, DockingOutcome)
 ```
 
 This is deliberate. Forcing a universal `Environment` trait would create an abstraction based on superficial similarity, not genuine reuse. See [02-architecture.md](02-architecture.md) for the full rationale.
@@ -137,6 +140,7 @@ Additionally:
 |---|---|
 | Canvas2D | `Extend<Object>` (batch insert) |
 | TextEditor | `Document: IntoIterator<Item = char>` |
+| Docking | No `IntoIterator` (no map-order guarantees) — iterate via `iter()` / `all_docks()` |
 | TagSet | `IntoIterator<Item = &Tag>` (BTreeSet, sorted) |
 
 All serializable types also have conditional `serde::Serialize` / `serde::Deserialize` derives behind the `serde` feature flag.
@@ -178,4 +182,5 @@ The UI owns all of these. The environment owns the semantic model behind the int
 - [04-canvas-2d.md](04-canvas-2d.md) — Canvas2D deep dive: objects, transforms, z-ordering, spatial queries.
 - [05-timeline.md](05-timeline.md) — Timeline deep dive: tracks, clips, keyframes, interpolation.
 - [07-node-graph.md](07-node-graph.md) — NodeGraph deep dive: ports, edges, topological sort, Canvas2D composition.
+- [21-docking.md](21-docking.md) — Docking deep dive: placements, splits, tab groups, embed hosts.
 - [15-operations-and-undo.md](15-operations-and-undo.md) — Operations and undo/redo patterns.

@@ -88,9 +88,9 @@ let definition = CommandDefinition::new(
     "Creates a new document",    // description
 )
 .with_metadata("category", "file")
-.with_version(Version::new(1, 0, 0))                          // Phase 20
-.with_input_schema(PayloadSchema::of::<String>())             // Phase 20
-.with_output_schema(PayloadSchema::of::<String>());           // Phase 20
+.with_version(Version::new(1, 0, 0))
+.with_input_schema(PayloadSchema::of::<String>())
+.with_output_schema(PayloadSchema::of::<String>());
 ```
 
 ### Registering a Command Handler
@@ -110,7 +110,7 @@ impl CommandHandler for CreateDocumentHandler {
         &self,
         input: &CommandInput,
         _context: &CommandContext,
-        engine: &EngineRef,                        // Phase 13: handler capabilities
+        engine: &EngineRef,
     ) -> Result<CommandResult, CommandError> {
         let name: &String = input.get::<String>()
             .ok_or_else(|| CommandError::InvalidArguments("expected document name".to_string()))?;
@@ -197,7 +197,7 @@ match engine.execute_command(&command) {
 }
 ```
 
-### Panic Isolation (Phase 24)
+### Panic Isolation
 
 If a command handler panics, the panic is caught and converted to an error:
 
@@ -249,7 +249,7 @@ let export_input: &ExportInput = input.get::<ExportInput>()
 
 The App Engine **never inspects** what's inside `CommandInput`. It just stores and forwards it.
 
-### Serialized Input (Phase 22)
+### Serialized Input
 
 For IPC and persistence, `CommandInput` can carry serialized bytes:
 
@@ -309,9 +309,9 @@ let definition = TaskDefinition::new(
 )
 .with_pause_support()                    // Can be paused/resumed
 .with_cancel_support()                   // Can be cancelled
-.with_version(Version::new(2, 0, 0))                           // Phase 20
-.with_input_schema(PayloadSchema::of::<ExportProjectInput>())  // Phase 20
-.with_output_schema(PayloadSchema::of::<ExportResult>());      // Phase 20
+.with_version(Version::new(2, 0, 0))
+.with_input_schema(PayloadSchema::of::<ExportProjectInput>())
+.with_output_schema(PayloadSchema::of::<ExportResult>());
 ```
 
 ### Registering a Task Handler
@@ -329,29 +329,29 @@ impl TaskHandler for ExportProjectHandler {
         &self,
         input: &TaskInput,
         context: &TaskContext,
-        engine: &EngineRef,                        // Phase 13: handler capabilities
+        engine: &EngineRef,
     ) -> Result<TaskResult, TaskError> {
         let input: &ExportProjectInput = input.get::<ExportProjectInput>()
             .ok_or_else(|| TaskError::ExecutionFailed {
                 id: 0, reason: "expected ExportProjectInput".to_string()
             })?;
 
-        // Phase 14: Check cancellation during long loops
+        // Check cancellation during long loops
         if context.is_cancelled() {
             return Ok(TaskResult::cancelled());
         }
 
-        // Phase 14: Check deadline for timeout
+        // Check deadline for timeout
         if context.is_expired() {
             return Err(TaskError::ExecutionFailed {
                 id: 0, reason: "timeout".to_string()
             });
         }
 
-        // Phase 14: Report progress (emits task.progress_changed signal)
+        // Report progress (emits task.progress_changed signal)
         context.output().progress(0.5);
 
-        // Phase 13: Publish completion event through EngineRef
+        // Publish completion event through EngineRef
         engine.event_bus.publish(
             &Event::new("project.exporting")
                 .with_source("ExportProjectHandler")
@@ -391,7 +391,7 @@ let exec_id = ExecutionId::new();
 let task_context = TaskContext::new(exec_id)
     .with_application(app_id)
     .with_session(session_id)
-    .with_deadline(Deadline::after(Duration::from_secs(30)));  // Phase 14
+    .with_deadline(Deadline::after(Duration::from_secs(30)));
 
 let task_id = engine.task_manager_mut().create(
     "project.export",
@@ -409,8 +409,8 @@ assert_eq!(engine.task_manager().get_state(task_id), Some(TaskState::Pending));
 
 The `TaskManager` automatically:
 - Assigns a unique `TaskId`
-- Creates and injects a `CancellationToken` (Phase 14)
-- Creates and injects a `TaskOutputChannel` (Phase 14)
+- Creates and injects a `CancellationToken`
+- Creates and injects a `TaskOutputChannel`
 - Sets the `task_id` on the context
 
 ### Starting a Task
@@ -424,7 +424,7 @@ assert_eq!(result.output::<ExportResult>().unwrap().output_path, "/tmp/export.pd
 assert_eq!(engine.task_manager().get_state(task_id), Some(TaskState::Completed));
 ```
 
-### Async Execution (Phase 21)
+### Async Execution
 
 For I/O-heavy handlers, use `AsyncTaskHandler` with the `async-runtime` feature:
 
@@ -530,7 +530,7 @@ result.error();             // None
 
 ---
 
-## Cancellation (Phase 14)
+## Cancellation
 
 Tasks that support cancellation can be cancelled before or during execution:
 
@@ -775,7 +775,7 @@ assert_eq!(
 );
 ```
 
-### Panic-Isolated Task Errors (Phase 24)
+### Panic-Isolated Task Errors
 
 ```rust
 struct PanickingTaskHandler;

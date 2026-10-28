@@ -8,13 +8,14 @@ Headless text editing model with Unicode scalar value positions, ranges, search/
 
 ```mermaid
 flowchart TD
-    subgraph TXT[TextEditor]
-        DOC[Document<br/>text + char_count (cached)]
-        POS[Position<br/>u32 (Unicode scalar value offset)]
-        RNG[Range<br/>start + end (half-open)]
+    subgraph TXT["TextEditor"]
+        DOC["Document<br/>text + char_count (cached)"]
+        POS["Position<br/>u32 (Unicode scalar value offset)"]
+        RNG["Range<br/>start + end (half-open)"]
     end
-    TXT -->|operations| OPS[TextEditorOperation]
-    OPS -->|apply| OUT[TextEditorOutcome]
+
+    TXT -->|operations| OPS["TextEditorOperation"]
+    OPS -->|apply| OUT["TextEditorOutcome"]
 ```
 
 ---

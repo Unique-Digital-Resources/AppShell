@@ -364,7 +364,7 @@ flowchart TD
 * Access ServiceManager/PluginManager (managed by runtime)
 * Access ContextManager (setup time only)
 
-**Permission-checked access (Phase 28):**
+**Permission-checked access:**
 
 ```rust
 // For plugins that want permission enforcement:

@@ -10,13 +10,13 @@ We'll use the **Measurement** environment from [01-creating-environment.md](01-c
 
 ```mermaid
 flowchart TD
-    A[1. Add environment field] --> B[2. Add DomainError variant]
-    B --> C[3. Add From impl]
-    C --> D[4. Add getter]
-    D --> E[5. Add execute_xxx method]
-    E --> F[6. Add name helpers]
-    F --> G[7. Update new() and Default]
-    G --> H[8. Add tests]
+    A["1. Add environment field"] --> B["2. Add DomainError variant"]
+    B --> C["3. Add From impl"]
+    C --> D["4. Add getter"]
+    D --> E["5. Add execute_xxx method"]
+    E --> F["6. Add name helpers"]
+    F --> G["7. Update new() and Default"]
+    G --> H["8. Add tests"]
 ```
 
 ---

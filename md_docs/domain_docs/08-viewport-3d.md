@@ -89,8 +89,9 @@ Objects can have a parent for transform inheritance:
 
 ```mermaid
 flowchart TD
-    ROOT[Root Object<br/>translation: (10, 0, 0)] --> CHILD[Child Object<br/>translation: (5, 0, 0)]
-    CHILD --> GRANDCHILD[Grandchild Object<br/>translation: (1, 0, 0)]
+    ROOT["Root Object<br/>translation: (10, 0, 0)"]
+    ROOT --> CHILD["Child Object<br/>translation: (5, 0, 0)"]
+    CHILD --> GRANDCHILD["Grandchild Object<br/>translation: (1, 0, 0)"]
 ```
 
 `set_parent(id, parent)` establishes the hierarchy. It rejects:

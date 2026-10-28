@@ -6,43 +6,49 @@ The **App Engine** is a generic application runtime infrastructure library. It p
 
 ```mermaid
 flowchart TD
-    subgraph AE[APP ENGINE]
+    subgraph AE["APP ENGINE"]
         direction TB
-        subgraph EXEC[Execution]
-            CMD[Commands]
-            TASK[Tasks]
-            SCH[Scheduler]
-            RES[Resources]
+
+        subgraph EXEC["Execution"]
+            CMD["Commands"]
+            TASK["Tasks"]
+            SCH["Scheduler"]
+            RES["Resources"]
         end
-        subgraph COMM[Communication]
-            EVT[Events]
-            SIG[Signals]
-            HIST[History]
+
+        subgraph COMM["Communication"]
+            EVT["Events"]
+            SIG["Signals"]
+            HIST["History"]
         end
-        subgraph EXT[Extension]
-            PLUG[Plugins]
-            SERV[Services]
-            PERM[Permissions]
+
+        subgraph EXT["Extension"]
+            PLUG["Plugins"]
+            SERV["Services"]
+            PERM["Permissions"]
         end
-        subgraph SUPPORT[Supporting]
-            LIFE[Runtime + Lifecycle + cleanup]
-            STATE[Context + State (thread-safe)]
-            CONFIG[Configuration + Preferences + persistence]
-            CONTROL[Execution Control (cancel, deadline, stream)]
-            CONC[Concurrency (thread-safe, async, TaskPool)]
-            SERIAL[Serialization (Serializer, registry, IPC)]
-            TEST[Testing (mocks, TestEngine, assertions)]
-            META[Metadata (Version, PayloadSchema)]
+
+        subgraph SUPPORT["Supporting"]
+            LIFE["Runtime + Lifecycle + cleanup"]
+            STATE["Context + State (thread-safe)"]
+            CONFIG["Configuration + Preferences + persistence"]
+            CONTROL["Execution Control (cancel, deadline, stream)"]
+            CONC["Concurrency (thread-safe, async, TaskPool)"]
+            SERIAL["Serialization (Serializer, registry, IPC)"]
+            TEST["Testing (mocks, TestEngine, assertions)"]
+            META["Metadata (Version, PayloadSchema)"]
         end
-        subgraph REL[Reliability]
-            PANIC[Panic isolation (catch_unwind)]
-            PRIORITY[Event priority (High/Normal/Low)]
-            RETRY[Retry policies (Fixed/Exponential)]
-            RAII[RAII resource handles (auto-release)]
+
+        subgraph REL["Reliability"]
+            PANIC["Panic isolation (catch_unwind)"]
+            PRIORITY["Event priority (High/Normal/Low)"]
+            RETRY["Retry policies (Fixed/Exponential)"]
+            RAII["RAII resource handles (auto-release)"]
         end
     end
-    AE -->|contracts| DE[DOMAIN ENGINE<br/>(app meaning)]
-    DE -->|integration| API[API / MCP / UI]
+
+    AE -->|contracts| DE["DOMAIN ENGINE\n(app meaning)"]
+    DE -->|integration| API["API / MCP / UI"]
 ```
 
 ---
@@ -278,10 +284,10 @@ This creates an `AppEngine`, runs through its full lifecycle (with automatic ser
 
 ```mermaid
 flowchart TD
-    APP[App]
-    APP --> AE[App Engine — runtime infrastructure (this library)]
-    APP --> DE[Domain Engine — application meaning and behavior]
-    APP --> UI[UI / API / MCP — external access and presentation]
+    APP["App"]
+    APP --> AE["App Engine — runtime infrastructure (this library)"]
+    APP --> DE["Domain Engine — application meaning and behavior"]
+    APP --> UI["UI / API / MCP — external access and presentation"]
 ```
 
 The App Engine is the **middle layer** — it provides the runtime machinery that the Domain Engine builds on, and that UI/API layers expose to users and external systems.

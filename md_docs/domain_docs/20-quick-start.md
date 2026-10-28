@@ -337,7 +337,7 @@ app_engine.dispose().unwrap();
 
 - [01-overview.md](01-overview.md) — What Domain Foundation is.
 - [02-architecture.md](02-architecture.md) — Architecture and design principles.
-- [03-environments.md](03-environments.md) — All 7 environments.
+- [03-environments.md](03-environments.md) — All 8 environments.
 - [11-relations.md](11-relations.md) — Relations system deep dive.
 - [13-domain-engine-integration.md](13-domain-engine-integration.md) — Full DomainEngine API.
 - [18-public-api-reference.md](18-public-api-reference.md) — Complete type listing.

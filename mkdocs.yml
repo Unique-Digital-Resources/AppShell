@@ -12,10 +12,9 @@ theme:
   favicon: assets/images/favicon.png
   features:
     - navigation.sections
-    - navigation.expand
+    - navigation.collapse
     - navigation.top
     - navigation.tracking
-    - navigation.indexes
     - search.suggest
     - search.highlight
     - content.code.copy
@@ -41,47 +40,56 @@ theme:
 nav:
   - Home: index.md
   - App Engine:
-      - Overview: app_engine_docs/01-overview.md
-      - Architecture: app_engine_docs/02-architecture.md
-      - Bootstrap & Lifecycle: app_engine_docs/03-bootstrap-and-lifecycle.md
-      - Context & State: app_engine_docs/04-context-and-state.md
-      - Commands & Tasks: app_engine_docs/05-commands-and-tasks.md
-      - Scheduling & Communication: app_engine_docs/06-scheduling-and-communication.md
-      - History & Resources: app_engine_docs/07-history-and-resources.md
-      - Services & Plugins: app_engine_docs/08-services-and-plugins.md
-      - Domain Engine Integration: app_engine_docs/09-domain-engine-integration.md
-      - Application Integration: app_engine_docs/10-application-integration.md
-      - Handler Capabilities: app_engine_docs/11-handler-capabilities.md
-      - Execution Control: app_engine_docs/12-execution-control.md
-      - Persistence & Serialization: app_engine_docs/13-persistence-and-serialization.md
-      - Concurrency & Async: app_engine_docs/14-concurrency-and-async.md
-      - Communication & Reliability: app_engine_docs/15-communication-reliability.md
-      - Testing & Metadata: app_engine_docs/16-testing-and-metadata.md
-      - Plugin Security: app_engine_docs/17-plugin-security.md
-      - Public API: app_engine_docs/18-public-api-reference.md
-      - Error Reference: app_engine_docs/19-error-reference.md
-      - Quick Start: app_engine_docs/20-quick-start.md
+      - Getting Started:
+          - Overview: app_engine_docs/01-overview.md
+          - Architecture: app_engine_docs/02-architecture.md
+          - Bootstrap & Lifecycle: app_engine_docs/03-bootstrap-and-lifecycle.md
+          - Context & State: app_engine_docs/04-context-and-state.md
+          - Commands & Tasks: app_engine_docs/05-commands-and-tasks.md
+          - Scheduling & Communication: app_engine_docs/06-scheduling-and-communication.md
+          - History & Resources: app_engine_docs/07-history-and-resources.md
+          - Services & Plugins: app_engine_docs/08-services-and-plugins.md
+          - Domain Engine Integration: app_engine_docs/09-domain-engine-integration.md
+          - Application Integration: app_engine_docs/10-application-integration.md
+      - Advanced:
+          - Handler Capabilities: app_engine_docs/11-handler-capabilities.md
+          - Execution Control: app_engine_docs/12-execution-control.md
+          - Persistence & Serialization: app_engine_docs/13-persistence-and-serialization.md
+          - Concurrency & Async: app_engine_docs/14-concurrency-and-async.md
+          - Communication & Reliability: app_engine_docs/15-communication-reliability.md
+          - Testing & Metadata: app_engine_docs/16-testing-and-metadata.md
+          - Plugin Security: app_engine_docs/17-plugin-security.md
+      - Reference:
+          - Public API: app_engine_docs/18-public-api-reference.md
+          - Error Reference: app_engine_docs/19-error-reference.md
+          - Quick Start: app_engine_docs/20-quick-start.md
   - Domain Foundation:
-      - Overview: domain_docs/01-overview.md
-      - Architecture: domain_docs/02-architecture.md
-      - Environments: domain_docs/03-environments.md
-      - Canvas2D: domain_docs/04-canvas-2d.md
-      - Timeline: domain_docs/05-timeline.md
-      - Layers: domain_docs/06-layers.md
-      - NodeGraph: domain_docs/07-node-graph.md
-      - Viewport3D: domain_docs/08-viewport-3d.md
-      - Table: domain_docs/09-table.md
-      - TextEditor: domain_docs/10-text-editor.md
-      - Relations: domain_docs/11-relations.md
-      - Utilities: domain_docs/12-utilities.md
-      - Domain Engine Integration: domain_docs/13-domain-engine-integration.md
-      - App Engine Integration: domain_docs/14-app-engine-integration.md
-      - Operations & Undo: domain_docs/15-operations-and-undo.md
-      - Serialization: domain_docs/16-serialization.md
-      - Testing: domain_docs/17-testing.md
-      - Public API Reference: domain_docs/18-public-api-reference.md
-      - Error Reference: domain_docs/19-error-reference.md
-      - Quick Start: domain_docs/20-quick-start.md
+      - Overview:
+          - Introduction: domain_docs/01-overview.md
+          - Architecture: domain_docs/02-architecture.md
+          - Environments: domain_docs/03-environments.md
+      - Environments:
+          - Canvas2D: domain_docs/04-canvas-2d.md
+          - Timeline: domain_docs/05-timeline.md
+          - Layers: domain_docs/06-layers.md
+          - NodeGraph: domain_docs/07-node-graph.md
+          - Viewport3D: domain_docs/08-viewport-3d.md
+          - Table: domain_docs/09-table.md
+          - TextEditor: domain_docs/10-text-editor.md
+          - Docking: domain_docs/21-docking.md
+      - Systems:
+          - Relations: domain_docs/11-relations.md
+          - Utilities: domain_docs/12-utilities.md
+      - Integration:
+          - Domain Engine: domain_docs/13-domain-engine-integration.md
+          - App Engine: domain_docs/14-app-engine-integration.md
+          - Operations & Undo: domain_docs/15-operations-and-undo.md
+          - Serialization: domain_docs/16-serialization.md
+      - Reference:
+          - Testing: domain_docs/17-testing.md
+          - Public API: domain_docs/18-public-api-reference.md
+          - Error Reference: domain_docs/19-error-reference.md
+          - Quick Start: domain_docs/20-quick-start.md
       - Guides:
           - Creating a New Environment: domain_docs/guides/01-creating-environment.md
           - Adding Operations & Undo: domain_docs/guides/02-adding-operations.md

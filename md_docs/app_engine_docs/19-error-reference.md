@@ -136,7 +136,7 @@ Command already registered: app.echo
 |---|---|
 | `UnknownCommand` | `execute()` with unregistered command ID |
 | `InvalidArguments` | Handler rejects input (wrong type, missing field) |
-| `ExecutionFailed` | Handler returned `Err` or panicked (Phase 24) |
+| `ExecutionFailed` | Handler returned `Err` or panicked |
 | `Cancelled` | Command was cancelled |
 | `AlreadyRegistered` | `register()` with duplicate ID |
 | `NoHandler` | Internal inconsistency (should not happen) |
@@ -185,7 +185,7 @@ Task definition already registered: render
 | `InvalidState` | `start()` on a non-Pending task, etc. |
 | `NotPausable` | `pause()` on a task without pause support |
 | `NotCancellable` | `cancel()` on a task without cancel support |
-| `ExecutionFailed` | Handler returned `Err` or panicked (Phase 24) |
+| `ExecutionFailed` | Handler returned `Err` or panicked |
 | `AlreadyRegistered` | `register()` with duplicate ID |
 
 ---
@@ -234,7 +234,7 @@ Service lifecycle errors.
 | `NotFound { id: u64 }` | Service not found. |
 | `InvalidState { id: u64, current: String, requested: String }` | Invalid state transition. |
 | `AlreadyRegistered { id: String }` | Service already registered. |
-| `StartFailed { id: u64, reason: String }` | Start failed (including panic — Phase 24). |
+| `StartFailed { id: u64, reason: String }` | Start failed (including panic). |
 | `StopFailed { id: u64, reason: String }` | Stop failed (including panic). |
 | `InitializeFailed { id: u64, reason: String }` | Initialize failed (including panic). |
 | `DisposeFailed { id: u64, reason: String }` | Dispose failed (including panic). |
@@ -263,7 +263,7 @@ Plugin lifecycle and loading errors.
 | `InvalidState { id: u64, current: String, requested: String }` | Invalid state transition. |
 | `AlreadyRegistered { id: String }` | Plugin already registered. |
 | `LoadFailed { source: String, reason: String }` | Loading failed. |
-| `InitializeFailed { id: u64, reason: String }` | Initialize failed (including panic — Phase 24). |
+| `InitializeFailed { id: u64, reason: String }` | Initialize failed (including panic). |
 | `StartFailed { id: u64, reason: String }` | Start failed (including panic). |
 | `StopFailed { id: u64, reason: String }` | Stop failed (including panic). |
 | `DisposeFailed { id: u64, reason: String }` | Dispose failed (including panic). |
@@ -569,7 +569,7 @@ match engine.execute_command(&cmd) {
         eprintln!("No command: {}", id);
     },
     Err(CommandError::ExecutionFailed(msg)) => {
-        // Could be handler error OR handler panic (Phase 24)
+        // Could be handler error OR handler panic
         eprintln!("Failed: {}", msg);
     },
     Err(e) => eprintln!("{}", e),
@@ -583,7 +583,7 @@ match engine.start_task(task_id) {
         eprintln!("Can't {}: {} -> {}", requested, current, requested);
     },
     Err(TaskError::ExecutionFailed { reason, .. }) => {
-        // Could be handler error OR handler panic (Phase 24)
+        // Could be handler error OR handler panic
         eprintln!("Failed: {}", reason);
     },
     Err(e) => eprintln!("{}", e),
@@ -608,7 +608,7 @@ fn do_work(engine: &mut AppEngine) -> Result<(), EngineError> {
 }
 ```
 
-### Panic-Isolated Errors (Phase 24)
+### Panic-Isolated Errors
 
 When a handler panics, the error message contains `"handler panicked: "` prefix:
 

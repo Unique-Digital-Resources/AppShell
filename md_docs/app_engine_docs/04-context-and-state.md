@@ -2,7 +2,7 @@
 
 ## Overview
 
-Phase 2 of the App Engine introduced two foundational systems that every other subsystem builds on:
+one of development phases of the App Engine introduced two foundational systems that every other subsystem builds on:
 
 ```mermaid
 flowchart TD
@@ -165,7 +165,7 @@ flowchart TD
     C --> F["PluginContext"]
 ```
 
-### TaskContext (Phase 2 + 14)
+### TaskContext
 
 ```rust
 use app_shell::app_engine::{
@@ -193,7 +193,7 @@ assert_eq!(task.context().task_id(), Some(task_id));  // set by manager
 assert!(task.context().is_expired() == false);  // deadline not yet passed
 ```
 
-**Phase 14 additions:**
+**additions:**
 
 ```rust
 // Cancellation — check during long-running tasks
@@ -213,7 +213,7 @@ task.context().output().progress(0.75);
 task.context().output().push("Frame 3 rendered".to_string());
 ```
 
-### CommandContext (Phase 2 + 14)
+### CommandContext
 
 ```rust
 use app_shell::app_engine::{CommandContext, Command, CommandInput, ExecutionId};
@@ -319,7 +319,7 @@ assert_eq!(
 
 ## StateStore
 
-`StateStore<S>` is a generic in-memory key-value state store. It is **thread-safe** (uses `Mutex` internally, Phase 23):
+`StateStore<S>` is a generic in-memory key-value state store. It is **thread-safe** (uses `Mutex` internally):
 
 ```rust
 use app_shell::app_engine::{StateId, StateStore, LifecycleState};
@@ -380,7 +380,7 @@ assert!(noop.is_no_op());
 
 ## StateManager
 
-`StateManager<S>` sits above `StateStore` and validates transitions. It is **thread-safe** (`Mutex` internally, Phase 23):
+`StateManager<S>` sits above `StateStore` and validates transitions. It is **thread-safe** (`Mutex` internally):
 
 ```rust
 use app_shell::app_engine::{StateManager, StateId, StateTransition, LifecycleState, StateError};
@@ -441,7 +441,7 @@ Use Context when you need to:
 - **Track parent relationships** (this execution belongs to this session).
 - **Pass execution metadata** to handlers (source, priority hints).
 - **Create isolated execution scopes** (different sessions for different users).
-- **Provide cancellation/deadline/progress** to task handlers (Phase 14).
+- **Provide cancellation/deadline/progress** to task handlers.
 
 ### When to use State
 
@@ -494,7 +494,7 @@ let task_id = engine.task_manager_mut().create(
 
 ---
 
-## Thread Safety (Phase 23)
+## Thread Safety
 
 Both `StateStore` and `StateManager` are thread-safe:
 

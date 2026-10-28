@@ -73,11 +73,11 @@ fn execute(&self, _: &TaskInput, _: &TaskContext, engine: &EngineRef) -> Result<
 
 ```rust
 fn execute(&self, _: &TaskInput, _: &TaskContext, engine: &EngineRef) -> Result<TaskResult, TaskError> {
-    // Load a resource — returns RAII handle (Phase 25)
+    // Load a resource — returns RAII handle
     let handle = engine.resource_manager.load("document", "file:///docs/my.doc")
         .map_err(|e| TaskError::ExecutionFailed { id: 0, reason: e.to_string() })?;
 
-    // Access resource data through the closure pattern (Phase 23)
+    // Access resource data through the closure pattern
     let data = engine.resource_manager.with_resource(handle.resource_id(), |r| {
         r.data::<String>().map(|s| s.clone())
     }).flatten();
@@ -91,10 +91,10 @@ fn execute(&self, _: &TaskInput, _: &TaskContext, engine: &EngineRef) -> Result<
 
 ```rust
 fn execute(&self, _: &TaskInput, _: &TaskContext, engine: &EngineRef) -> Result<TaskResult, TaskError> {
-    // Read config (thread-safe — Phase 23)
+    // Read config (thread-safe)
     let worker_count = engine.config_store.get_i64("worker_count").unwrap_or(4);
 
-    // Write config (thread-safe, persists to backend if configured — Phase 15)
+    // Write config (thread-safe, persists to backend if configured)
     engine.config_store.set("last_export", "2024-01-15").map_err(|e| {
         TaskError::ExecutionFailed { id: 0, reason: e.to_string() }
     })?;
@@ -107,7 +107,7 @@ fn execute(&self, _: &TaskInput, _: &TaskContext, engine: &EngineRef) -> Result<
 
 ```rust
 fn execute(&self, _: &TaskInput, _: &TaskContext, engine: &EngineRef) -> Result<TaskResult, TaskError> {
-    // Read preferences (thread-safe — Phase 23)
+    // Read preferences (thread-safe)
     let theme = engine.preferences.get("theme").as_deref().unwrap_or("light");
 
     // Write preferences (thread-safe)
@@ -161,7 +161,7 @@ fn execute(&self, _: &TaskInput, _: &TaskContext, engine: &EngineRef) -> Result<
         5,  // priority
     );
 
-    // Or submit with retry policy (Phase 27)
+    // Or submit with retry policy
     let retry_job = engine.scheduler.submit_with_retry(
         TaskId::new(),
         Schedule::Immediate,
@@ -177,7 +177,7 @@ fn execute(&self, _: &TaskInput, _: &TaskContext, engine: &EngineRef) -> Result<
 
 ```rust
 fn execute(&self, _: &TaskInput, _: &TaskContext, engine: &EngineRef) -> Result<TaskResult, TaskError> {
-    // Append a history entry (thread-safe — Phase 22)
+    // Append a history entry (thread-safe)
     engine.history_store.append(
         HistoryEntry::new("object.move")
             .undoable()
@@ -199,7 +199,7 @@ fn execute(&self, _: &TaskInput, _: &TaskContext, engine: &EngineRef) -> Result<
 
 ```rust
 fn execute(&self, _: &TaskInput, _: &TaskContext, engine: &EngineRef) -> Result<TaskResult, TaskError> {
-    // Current entry (Phase 22 — Mutex-safe access)
+    // Current entry (Mutex-safe access)
     let current_op = engine.history_store.current();
     if let Some((_, op, undoable)) = current_op {
         println!("Current operation: {} (undoable: {})", op, undoable);
@@ -376,7 +376,7 @@ All fields in `EngineRef` point to **thread-safe** managers:
 
 ---
 
-## PermissionCheckedEngineRef (Phase 28)
+## PermissionCheckedEngineRef
 
 For plugins that want to enforce permissions, wrap `EngineRef`:
 
@@ -454,55 +454,55 @@ impl TaskHandler for ExportHandler {
                 id: 0, reason: "expected ExportInput".into()
             })?;
 
-        // Phase 14: Check cancellation
+        // Check cancellation
         if ctx.is_cancelled() {
             return Ok(TaskResult::cancelled());
         }
 
-        // Phase 14: Check deadline
+        // Check deadline
         if ctx.is_expired() {
             return Err(TaskError::ExecutionFailed {
                 id: 0, reason: "timeout".into()
             });
         }
 
-        // Phase 14: Report progress
+        // Report progress
         ctx.output().progress(0.0);
 
-        // Phase 13: Read config
+        // Read config
         let worker_count = engine.config_store.get_i64("worker_count").unwrap_or(4);
 
-        // Phase 13: Load a resource (RAII handle auto-releases on drop)
+        // Load a resource (RAII handle auto-releases on drop)
         let handle = engine.resource_manager.load("document", &input.source)
             .map_err(|e| TaskError::ExecutionFailed {
                 id: 0, reason: e.to_string()
             })?;
 
-        // Phase 23: Access resource data
+        // Access resource data
         let doc_data = engine.resource_manager.with_resource(handle.resource_id(), |r| {
             r.data::<String>().map(|s| s.clone())
         }).flatten().unwrap_or_default();
 
-        // Phase 13: Publish event
+        // Publish event
         engine.event_bus.publish(
             &Event::new("document.exported")
                 .with_payload(doc_data.clone())
                 .with_source("ExportHandler")
         );
 
-        // Phase 13: Emit progress signal
+        // Emit progress signal
         engine.signal_bus.emit(
             &Signal::new("export.progress")
                 .with_payload(0.5_f32)
         );
 
-        // Phase 13: Append to history
+        // Append to history
         engine.history_store.append(
             HistoryEntry::new("document.export")
                 .with_source("ExportHandler"),
         );
 
-        // Phase 14: Report completion progress
+        // Report completion progress
         ctx.output().progress(1.0);
 
         Ok(TaskResult::completed_with(doc_data))

@@ -180,6 +180,45 @@ domain_foundation::environments::text_editor
 
 ---
 
+### Docking
+
+```text
+domain_foundation::environments::docking
+```
+
+| Type | Kind | Description |
+|---|---|---|
+| `DockLayout` | struct | Dock-container (docks + designated root + id counter) |
+| `Dock` | struct | Identity + category payload |
+| `DockRole` | enum | Panel{content, collapsed}, Split{orientation, children, sizes}, TabGroup{members, active}, EmbedHost{content, regions, floating, persistent} |
+| `DockKind` | enum | Panel, Split, TabGroup, EmbedHost (category without payload) |
+| `DockId` | newtype | Opaque dock identifier (u64; ids never renumber; `from_raw`/`as_raw` for host keying) |
+| `ContentRef` | type alias | `String` — opaque, host-supplied content reference |
+| `DockSlot` | enum | Root, SplitChild{parent, index}, TabMember{parent, index}, HostEdge{host, edge}, Floating{host, index} |
+| `EdgeRegion` | enum | Top, Bottom, Left, Right |
+| `SplitOrientation` | enum | Row, Column |
+| `SplitSizes` | struct | One relative weight per split child (finite, strictly positive) |
+| `HostRegions` | struct | Edge-region occupancy + per-region weight |
+| `FloatingEntry` / `FloatingRect` | struct | Floated subtree root + its host-fraction body rect (`BASELINE` constant) |
+| `InsertSource` | enum | Existing(DockId), NewPanel{content} |
+| `EmbedSlot` | enum | Region(EdgeRegion), Floating{rect: Option<FloatingRect>} |
+| `SplitDirection` | enum | Left, Right, Top, Bottom |
+| `FormerCollection` | enum | Split, Tab, Region, Floating, Panel, Promotion, Demotion (the slot a detached dock is restored to) |
+| `UndoData` | enum | Full inverse/replay payload carried on every outcome |
+| `DockingOperation` | enum | 13 variants: CreatePanel, CreateEmbedHost, InsertBeside, TabJoin, ReorderTab, SetActiveTab, Remove, ResizeSiblings, SetDockCollapsed, Embed, PromoteHost, ResizeRegion, SetFloatingRect |
+| `DockingOutcome` | enum | 12 variants with undo data (Created serves both creation operations) |
+| `DockingError` | enum | 29 variants (see [19-error-reference.md](19-error-reference.md)) |
+
+**Methods on `DockLayout`:** `new`, `len`, `is_empty`, `root`, `root_dock`, `contains`, `get`, `iter`, `create_panel`, `create_embed_host`, `create_split`, `create_tab_group`, `set_root`, `clear`, `placement`, `is_descendant`, `descendants`, `path`, `depth`, `all_docks`, `kind_of`, `validate`, `normalize`
+
+**Creation preconditions:** `create_split` needs ≥ 2 *unplaced* children and matching weight count (`InsufficientChildren` / `SizeCountMismatch`); `create_tab_group` needs ≥ 1 member and a valid `active` index; `set_root(Some(id))` refuses while a root is designated (`RootAlreadySet`).
+
+**Slots are operation-owned:** `DockSlot` has no public constructor; placement changes happen only through `DockingOperation::apply(&mut DockLayout)` (a rejected request leaves the layout, history, and events untouched).
+
+**Traits:** `Default for DockLayout`
+
+---
+
 ## Relations
 
 ```text
@@ -306,7 +345,7 @@ domain_engine
 
 | Type | Description |
 |---|---|
-| `DomainEngine` | Composition root (7 environments + App Engine integration) |
+| `DomainEngine` | Composition root (8 environments + App Engine integration) |
 | `DomainError` | Combined error type (Canvas, Timeline, Layers, NodeGraph, Table, TextEditor, Viewport3D) |
 | `ExecutedCanvasOperation` | Operation + outcome pair with undo/redo |
 | `CanvasCommandHandler` | App Engine `CommandHandler` for Canvas2D |

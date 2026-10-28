@@ -13,7 +13,7 @@ Both are **dependency-free** by default. The Domain Engine provides the storage 
 
 ---
 
-## Part 1: Persistence (Phase 15)
+## Part 1: Persistence
 
 ### StorageBackend Trait
 
@@ -141,7 +141,7 @@ let store = ConfigStore::new(schema);
 When `set()` is called:
 
 ```rust
-// ConfigStore::set() — thread-safe (Phase 23)
+// ConfigStore::set() — thread-safe
 store.set("worker_count", "8")?;
 // 1. Validates against schema
 // 2. Saves to backend (file/memory)
@@ -171,7 +171,7 @@ store.save(new_config)?;
 // 4. Fires change notifications for each changed key
 ```
 
-### Change Notifications (Phase 19)
+### Change Notifications
 
 `ConfigStore` can fire callbacks when values change:
 
@@ -200,7 +200,7 @@ assert_eq!(old.as_deref(), Some("default"));  // old value was the default
 assert_eq!(new.as_deref(), Some("new_value"));
 ```
 
-### Thread-Safe ConfigStore (Phase 23)
+### Thread-Safe ConfigStore
 
 `ConfigStore` uses `Mutex<Config>` internally. All methods take `&self`:
 
@@ -218,7 +218,7 @@ h1.join().unwrap();
 h2.join().unwrap();
 ```
 
-### HistoryStore with Backend (Phase 22)
+### HistoryStore with Backend
 
 `HistoryStore` can also persist:
 
@@ -238,7 +238,7 @@ assert_eq!(store.entry_count(), 1);
 
 ---
 
-## Part 2: Serialization (Phase 22)
+## Part 2: Serialization
 
 ### The Problem
 
@@ -545,7 +545,7 @@ engine.config_store().set("my_plugin.config", &json)?;
 
 ## Thread Safety
 
-All systems are thread-safe (Phase 23):
+All systems are thread-safe:
 
 | System | Lock Type | Notes |
 |---|---|---|

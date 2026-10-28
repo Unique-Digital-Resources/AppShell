@@ -182,7 +182,7 @@ assert_eq!(*counter.lock().unwrap(), 10);
 
 ---
 
-## Part 3: Async Runtime (Phase 21)
+## Part 3: Async Runtime
 
 ### Feature Flag
 
@@ -389,7 +389,7 @@ use app_shell::app_engine::HandlerKind;
 
 ## Part 5: Panic Isolation in Concurrent Context
 
-Even in multi-threaded scenarios, panics are isolated (Phase 24):
+Even in multi-threaded scenarios, panics are isolated :
 
 ### Task Handler Panics
 
@@ -413,7 +413,7 @@ assert_eq!(engine.task_manager().get_state(task_id), Some(TaskState::Failed));
 
 ### Event Handler Panics
 
-Event dispatch is also panic-isolated (Phase 19):
+Event dispatch is also panic-isolated :
 
 ```rust
 struct PanickingEventHandler;

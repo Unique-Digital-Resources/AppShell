@@ -110,7 +110,7 @@ assert_eq!(engine.history_store().active_count(), 3);
 assert_eq!(engine.history_store().position(), 3);
 ```
 
-### Accessing Entries (Phase 22+23)
+### Accessing Entries
 
 `HistoryStore` uses `Mutex` internally (thread-safe). Entries can't be returned by reference through a lock — use the tuple/closure patterns:
 
@@ -283,7 +283,7 @@ let replayed: Vec<String> = engine.history_store().replay()
 assert_eq!(replayed, vec!["object.create".to_string(), "object.move".to_string()]);
 ```
 
-### Persistence (Phase 22)
+### Persistence
 
 HistoryStore can optionally persist via `StorageBackend`:
 
@@ -404,7 +404,7 @@ assert!(ResourceState::Loading.is_active());
 assert!(ResourceState::Unloaded.is_terminal());
 ```
 
-### RAII Resource Handles (Phase 25)
+### RAII Resource Handles
 
 `ResourceHandle` is a RAII reference to a managed resource. When dropped, it automatically decrements the reference count:
 
@@ -422,7 +422,7 @@ assert_eq!(engine.resource_manager().active_count(id), 0);
 assert!(engine.resource_manager().exists(id));
 ```
 
-**How RAII works (Phase 25):**
+**How RAII works:**
 
 The `ResourceManager` is stored behind `Arc` in `AppRuntime`. When `load()` creates a handle, it captures a `Weak<ResourceManager>` callback:
 
@@ -539,7 +539,7 @@ let has_data = engine.resource_manager().with_resource(id, |r| r.has_data()).unw
 assert!(has_data);
 ```
 
-### Accessing Resource Data (Phase 23)
+### Accessing Resource Data
 
 `ResourceManager` uses `Mutex` internally. Can't return `&Resource` through a lock — use the closure pattern:
 
@@ -600,7 +600,7 @@ assert!(matches!(result, Err(ResourceError::LoadFailed { .. })));
 assert_eq!(engine.resource_manager().resource_count(), 0);
 ```
 
-### Resource Dependencies (Phase 16)
+### Resource Dependencies
 
 Resources can declare dependencies — loading a resource automatically loads its dependencies first:
 
@@ -648,7 +648,7 @@ let result = engine.resource_manager().unload(base_id);
 assert!(matches!(result, Err(ResourceError::InUse { .. })));
 ```
 
-### Unload All on Dispose (Phase 26)
+### Unload All on Dispose
 
 When `engine.dispose()` is called, all non-in-use resources are unloaded:
 
@@ -669,7 +669,7 @@ assert_eq!(engine.resource_manager().resource_count(), 0);
 
 Resources with active handles are NOT unloaded — the RAII callback handles their release.
 
-### Serialized Resource Data (Phase 22)
+### Serialized Resource Data
 
 Resource data can carry optional serialized bytes for persistence and IPC:
 

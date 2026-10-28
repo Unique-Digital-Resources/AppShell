@@ -1,6 +1,6 @@
 # Domain Engine Integration
 
-The `DomainEngine` is the composition root that wraps all 7 environments with App Engine history, events, signals, and transactions. It defines **how operations are executed** — not what they mean.
+The `DomainEngine` is the composition root that wraps all 8 environments with App Engine history, events, signals, and transactions. It defines **how operations are executed** — not what they mean.
 
 ---
 
@@ -8,7 +8,7 @@ The `DomainEngine` is the composition root that wraps all 7 environments with Ap
 
 ```mermaid
 flowchart TD
-    DE[DomainEngine] --> ENV[7 Environments<br/>Canvas, Timeline, Layers, NodeGraph, Table, Document, Scene]
+    DE[DomainEngine] --> ENV[8 Environments<br/>Canvas, Timeline, Layers, NodeGraph, Table, Document, Scene, Docking]
     DE --> HIST[HistoryStore<br/>undo/redo, transactions]
     DE --> TX[TransactionManager<br/>begin/commit/rollback]
     DE --> EVT[EventBus<br/>publish events]

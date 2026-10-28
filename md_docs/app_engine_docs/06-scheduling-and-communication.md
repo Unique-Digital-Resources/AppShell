@@ -257,7 +257,7 @@ engine.scheduler_mut().resume();
 // tick() works again
 ```
 
-### Retry Policies (Phase 27)
+### Retry Policies
 
 When a dispatched task fails, the scheduler can create a new delayed job based on the retry policy:
 
@@ -326,7 +326,7 @@ while !engine.stop_requested() {
                             .with_source("TaskExecutor"),
                     );
                 } else if result.is_failed() && job.retry_policy().should_retry() {
-                    // Retry on failure (Phase 27)
+                    // Retry on failure
                     if let Some(retry_id) = engine.scheduler_mut().handle_task_failure(&job) {
                         // Retry job is delayed — will be eligible after backoff
                     }
@@ -345,7 +345,7 @@ while !engine.stop_requested() {
 engine.stop()?;
 ```
 
-### Thread-Safe Scheduler (Phase 23)
+### Thread-Safe Scheduler
 
 The scheduler is fully thread-safe — all methods take `&self`:
 
@@ -385,8 +385,8 @@ Events are **past occurrences** — they announce that something already took pl
 - **One-to-many**: multiple consumers can subscribe.
 - **Immutable**: the event describes what happened; it doesn't request action.
 - **Decoupled**: the producer doesn't know who the consumers are.
-- **Priority-ordered**: High before Normal before Low (Phase 19).
-- **Panic-isolated**: one crashing handler doesn't kill the engine (Phase 19).
+- **Priority-ordered**: High before Normal before Low.
+- **Panic-isolated**: one crashing handler doesn't kill the engine.
 
 ### Event Structure
 
@@ -403,7 +403,7 @@ assert!(event.has_payload());
 assert_eq!(event.payload::<String>(), Some(&"task_42".to_string()));
 ```
 
-### Event Priority (Phase 19)
+### Event Priority
 
 ```rust
 use app_shell::app_engine::EventPriority;
@@ -499,7 +499,7 @@ engine.event_bus_mut().unsubscribe("task.completed", handler_id);
 // No more events delivered to Logger
 ```
 
-### Panic Isolation (Phase 19)
+### Panic Isolation
 
 If an event handler panics, it doesn't crash the engine or block other handlers:
 
@@ -554,7 +554,7 @@ engine.event_bus_mut().subscribe(
 );
 ```
 
-### Serialized Event Payload (Phase 22)
+### Serialized Event Payload
 
 For IPC, events can carry serialized bytes:
 
@@ -652,7 +652,7 @@ engine.signal_bus().unsubscribe("task.progress_changed", sub_id);
 // No more deliveries
 ```
 
-### Progress Streaming from Task Handlers (Phase 14)
+### Progress Streaming from Task Handlers
 
 Task handlers can emit progress signals through `TaskOutputChannel`, which is connected to the `SignalBus`:
 

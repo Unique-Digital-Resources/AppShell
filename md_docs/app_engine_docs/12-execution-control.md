@@ -2,7 +2,7 @@
 
 ## Overview
 
-Phase 14 added three mechanisms that make long-running tasks controllable:
+we added three mechanisms that make long-running tasks controllable:
 
 ```text
 CancellationToken  — "Has the user/system requested cancellation?"
@@ -361,7 +361,7 @@ impl TaskHandler for RenderHandler {
         engine: &EngineRef,
     ) -> Result<TaskResult, TaskError> {
         for i in 0..self.frames {
-            // Phase 14: Check cancellation
+            // Check cancellation
             if ctx.is_cancelled() {
                 engine.signal_bus.emit(
                     &Signal::new("render.cancelled")
@@ -369,7 +369,7 @@ impl TaskHandler for RenderHandler {
                 return Ok(TaskResult::cancelled());
             }
 
-            // Phase 14: Check deadline
+            // Check deadline
             if ctx.is_expired() {
                 return Err(TaskError::ExecutionFailed {
                     id: 0,
@@ -377,13 +377,13 @@ impl TaskHandler for RenderHandler {
                 });
             }
 
-            // Phase 14: Report progress (emits task.progress_changed signal)
+            // Report progress (emits task.progress_changed signal)
             ctx.output().progress(i as f32 / self.frames as f32);
 
-            // Phase 14: Stream intermediate output (emits task.output signal)
+            // Stream intermediate output (emits task.output signal)
             ctx.output().push(format!("Frame {} rendered", i));
 
-            // Phase 13: Publish progress event (separate from signals)
+            // Publish progress event (separate from signals)
             engine.event_bus.publish(
                 &Event::new("render.frame_completed")
                     .with_payload(i)
@@ -474,20 +474,20 @@ fn main() {
 
 ## Integration with TaskManager
 
-### Cancellation Propagation (Phase 14 + 26)
+### Cancellation Propagation
 
 When `TaskManager::cancel()` is called:
 1. The `CancellationToken` is set (atomic flag)
 2. The handler checks `ctx.is_cancelled()` and returns `TaskResult::cancelled()`
 3. The task state transitions to `Cancelled`
 
-When `engine.stop()` is called (Phase 26):
+When `engine.stop()` is called :
 1. `TaskManager::cancel_all()` is called
 2. All running tasks' tokens are cancelled
 3. All running tasks' states are set to `Cancelled`
 4. The handler (if running in a loop) will detect cancellation on the next check
 
-### Output Channel Connection (Phase 14)
+### Output Channel Connection
 
 When `AppRuntime::start_task()` is called:
 1. `TaskOutputChannel` is created with a `Weak<SignalBus>` callback

@@ -12,7 +12,7 @@ Retry Policies     — Failed tasks can be retried with configurable backoff
 
 ---
 
-## Part 1: Event Priority (Phase 19)
+## Part 1: Event Priority
 
 ### Priority Levels
 
@@ -105,7 +105,7 @@ assert_eq!(*order, vec![0, 1, 2]);  // High(0), Normal(1), Low(2)
 
 ---
 
-## Part 2: Panic Isolation (Phase 19 + 24)
+## Part 2: Panic Isolation
 
 ### What Is Isolated
 
@@ -276,7 +276,7 @@ assert_eq!(engine.task_manager().count(), 2);
 
 ---
 
-## Part 3: Retry Policies (Phase 27)
+## Part 3: Retry Policies
 
 ### RetryPolicy
 
@@ -407,7 +407,7 @@ if result.is_err() {
 }
 ```
 
-### Config Change Notification (Phase 19)
+### Config Change Notification
 
 ConfigStore fires callbacks when values change — useful for reactive configuration:
 

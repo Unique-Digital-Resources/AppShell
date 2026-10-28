@@ -68,7 +68,7 @@ flowchart TD
     ROOT --> T["tasks/<br/>← domain tasks (App Engine handlers)"]
     ROOT --> R["resources/<br/>← domain resources (App Engine loaders)"]
     ROOT --> S["services/<br/>← domain services (App Engine services)"]
-    ROOT --> Z["serializers/<br/>← domain serializers (Phase 22)"]
+    ROOT --> Z["serializers/<br/>← domain serializers"]
     ROOT --> E["events/<br/>← domain event definitions"]
 
     P --> P1["mod.rs"]
@@ -156,7 +156,7 @@ impl CommandHandler for CreateDocumentCommand {
         &self,
         input: &CommandInput,
         _context: &CommandContext,
-        engine: &EngineRef,                        // Phase 13: handler capabilities
+        engine: &EngineRef,                        // handler capabilities
     ) -> Result<CommandResult, CommandError> {
         let input: &CreateDocumentInput = input.get::<CreateDocumentInput>()
             .ok_or_else(|| CommandError::InvalidArguments("expected CreateDocumentInput".to_string()))?;
@@ -164,7 +164,7 @@ impl CommandHandler for CreateDocumentCommand {
         // Call domain function
         let document = create_document(&input.title);
 
-        // Phase 13: Publish event through EngineRef
+        // Publish event through EngineRef
         engine.event_bus.publish(
             &Event::new("document.created")
                 .with_payload(document.id.clone())
@@ -183,9 +183,9 @@ impl CommandHandler for CreateDocumentCommand {
 // During application setup:
 engine.command_executor_mut().register(
     CommandDefinition::new("document.create", "Create Document", "Creates a new document")
-        .with_version(Version::new(1, 0, 0))                          // Phase 20
-        .with_input_schema(PayloadSchema::of::<CreateDocumentInput>()) // Phase 20
-        .with_output_schema(PayloadSchema::of::<String>()),            // Phase 20
+        .with_version(Version::new(1, 0, 0))                        
+        .with_input_schema(PayloadSchema::of::<CreateDocumentInput>())
+        .with_output_schema(PayloadSchema::of::<String>()),          
     Box::new(CreateDocumentCommand),
 )?;
 
@@ -199,7 +199,7 @@ let result = engine.execute_command(&Command::new(
 let doc_id = result.output::<String>().unwrap();
 ```
 
-### Panic Isolation (Phase 24)
+### Panic Isolation
 
 If the command handler panics, it's caught:
 
@@ -268,19 +268,19 @@ impl TaskHandler for ExportProjectTask {
         &self,
         input: &TaskInput,
         context: &TaskContext,
-        engine: &EngineRef,                        // Phase 13: handler capabilities
+        engine: &EngineRef,                        // handler capabilities
     ) -> Result<TaskResult, TaskError> {
         let input: &ExportProjectInput = input.get::<ExportProjectInput>()
             .ok_or_else(|| TaskError::ExecutionFailed {
                 id: 0, reason: "expected ExportProjectInput".to_string()
             })?;
 
-        // Phase 14: Check cancellation during long operations
+        //  Check cancellation during long operations
         if context.is_cancelled() {
             return Ok(TaskResult::cancelled());
         }
 
-        // Phase 14: Check deadline for timeout
+        //  Check deadline for timeout
         if context.is_expired() {
             return Err(TaskError::ExecutionFailed {
                 id: 0, reason: "timeout".to_string()
@@ -293,7 +293,7 @@ impl TaskHandler for ExportProjectTask {
                 id: 0, reason: e.to_string()
             })?;
 
-        // Phase 14: Report progress (emits task.progress_changed signal)
+        //  Report progress (emits task.progress_changed signal)
         context.output().progress(0.0);
 
         // Call domain function
@@ -305,7 +305,7 @@ impl TaskHandler for ExportProjectTask {
         // Report completion progress
         context.output().progress(1.0);
 
-        // Phase 13: Publish completion event through EngineRef
+        // Publish completion event through EngineRef
         engine.event_bus.publish(
             &Event::new("project.exported")
                 .with_payload(result.clone())
@@ -324,10 +324,10 @@ impl TaskHandler for ExportProjectTask {
 // Register
 engine.task_manager_mut().register(
     TaskDefinition::new("project.export", "Export Project", "Exports the project")
-        .with_cancel_support()                                        // Phase 14
-        .with_version(Version::new(2, 0, 0))                          // Phase 20
-        .with_input_schema(PayloadSchema::of::<ExportProjectInput>())  // Phase 20
-        .with_output_schema(PayloadSchema::of::<ExportResult>()),      // Phase 20
+        .with_cancel_support()                                      
+        .with_version(Version::new(2, 0, 0))                        
+        .with_input_schema(PayloadSchema::of::<ExportProjectInput>())
+        .with_output_schema(PayloadSchema::of::<ExportResult>()),    
     Box::new(ExportProjectTask),
 )?;
 
@@ -337,7 +337,7 @@ let task_id = engine.task_manager_mut().create(
     TaskContext::new(ExecutionId::new())
         .with_application(app_id)
         .with_session(session_id)
-        .with_deadline(Deadline::after(Duration::from_secs(30))),  // Phase 14
+        .with_deadline(Deadline::after(Duration::from_secs(30))),
     TaskInput::new(ExportProjectInput {
         project_id: "proj_42".to_string(),
         format: "pdf".to_string(),
@@ -412,7 +412,7 @@ The Domain Engine defines resource types and loaders. The App Engine manages the
 flowchart TD
     A["DocumentLoader (ResourceLoader)"] -->|"loads from file"| B["DocumentData (domain type)"]
     B --> C["stored in Resource (generic App Engine wrapper)"]
-    C --> D["accessed via ResourceHandle (RAII — Phase 25)"]
+    C --> D["accessed via ResourceHandle (RAII)"]
 ```
 
 ### Domain Resource Type
@@ -461,11 +461,11 @@ impl ResourceLoader for DocumentLoader {
 // Register the domain loader
 engine.resource_manager().register_loader(Box::new(DocumentLoader));
 
-// Load a document resource (RAII handle auto-releases on drop — Phase 25)
+// Load a document resource (RAII handle auto-releases on drop)
 let handle = engine.resource_manager()
     .load("document", "file:///docs/my_doc.dp")?;
 
-// Access the document data through the closure pattern (Phase 23)
+// Access the document data through the closure pattern
 let doc_data = engine.resource_manager()
     .with_resource(handle.resource_id(), |r| {
         r.data::<DocumentData>().map(|d| d.clone())
@@ -528,7 +528,7 @@ impl Service for AutosaveService {
         // and schedule tasks through the engine
         self.save_count = 0;
 
-        // Phase 13: Access engine through EngineRef
+        // Access engine through EngineRef
         // engine.event_bus.publish(...)  — requires &mut EventBus (setup time)
         // engine.scheduler().submit(...) — can submit at runtime
 
@@ -632,7 +632,7 @@ The App Engine's `EventBus` routes the event. The Domain Engine provides the eve
 
 ---
 
-## Pattern 7: Domain Serializer (Phase 22)
+## Pattern 7: Domain Serializer
 
 For IPC and persistence, the Domain Engine provides serializers:
 
@@ -719,7 +719,7 @@ assert_eq!(data.project_id, "proj_42");
 
 ---
 
-## Pattern 8: Async Domain Task (Phase 21)
+## Pattern 8: Async Domain Task
 
 For I/O-heavy domain operations, use `AsyncTaskHandler`:
 
@@ -1019,8 +1019,8 @@ Each domain concept maps to exactly one App Engine contract. The Domain Engine n
 | Are domain serializers registered with SerializationRegistry? | Yes (if IPC/persistence needed) |
 | Are domain command/task definitions versioned? | Yes (Version + PayloadSchema) |
 | Are domain handlers panic-isolated by App Engine? | Yes (catch_unwind) |
-| Does domain code receive EngineRef for engine access? | Yes (Phase 13) |
-| Are RAII resource handles used (auto-release on drop)? | Yes (Phase 25) |
+| Does domain code receive EngineRef for engine access? | Yes |
+| Are RAII resource handles used (auto-release on drop)? | Yes |
 | Is retry handled by the scheduler? | Yes (RetryPolicy + handle_task_failure) |
 
 ---

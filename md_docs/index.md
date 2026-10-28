@@ -490,7 +490,7 @@ Apache-2.0
 |---|---|---|
 | 01 | [Overview](domain_docs/01-overview.md) | What Domain Foundation is, what it provides, what it doesn't |
 | 02 | [Architecture](domain_docs/02-architecture.md) | Layering, composition rules, dependency direction |
-| 03 | [Environments](domain_docs/03-environments.md) | All 7 environments at a glance |
+| 03 | [Environments](domain_docs/03-environments.md) | All 8 environments at a glance |
 
 ### Domain Foundation — Environments
 

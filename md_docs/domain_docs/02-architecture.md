@@ -67,14 +67,21 @@ Each environment owns its own types:
 
 ```mermaid
 flowchart TD
-    ENV[Environment<br/>(category, not a trait)]
-    ENV --> C2D[Canvas2D<br/>Canvas, Object, ObjectId, Transform, Vec2<br/>CanvasError, CanvasOperation, CanvasOutcome]
-    ENV --> TLM[Timeline<br/>Timeline, Track, Clip, Keyframe, Time, Duration<br/>TimelineError, TimelineOperation, TimelineOutcome]
-    ENV --> LYR[Layers<br/>Layers, Layer, LayerId<br/>LayersError, LayersOperation, LayersOutcome]
-    ENV --> NG[NodeGraph<br/>NodeGraph, Node, Port, Edge<br/>NodeGraphError, NodeGraphOperation, NodeGraphOutcome]
-    ENV --> V3D[Viewport3D<br/>Scene, Object3D, Transform3D, Vec3<br/>Viewport3DError, Viewport3DOperation, Viewport3DOutcome]
-    ENV --> TBL[Table<br/>Table, Row, Column, CellId, CellValue<br/>TableError, TableOperation, TableOutcome]
-    ENV --> TXT[TextEditor<br/>Document, Position, Range<br/>TextEditorError, TextEditorOperation, TextEditorOutcome]
+    ENV["Environment<br/>(category, not a trait)"]
+
+    ENV --> C2D["Canvas2D<br/>Canvas, Object, ObjectId, Transform, Vec2<br/>CanvasError, CanvasOperation, CanvasOutcome"]
+
+    ENV --> TLM["Timeline<br/>Timeline, Track, Clip, Keyframe, Time, Duration<br/>TimelineError, TimelineOperation, TimelineOutcome"]
+
+    ENV --> LYR["Layers<br/>Layers, Layer, LayerId<br/>LayersError, LayersOperation, LayersOutcome"]
+
+    ENV --> NG["NodeGraph<br/>NodeGraph, Node, Port, Edge<br/>NodeGraphError, NodeGraphOperation, NodeGraphOutcome"]
+
+    ENV --> V3D["Viewport3D<br/>Scene, Object3D, Transform3D, Vec3<br/>Viewport3DError, Viewport3DOperation, Viewport3DOutcome"]
+
+    ENV --> TBL["Table<br/>Table, Row, Column, CellId, CellValue<br/>TableError, TableOperation, TableOutcome"]
+
+    ENV --> TXT["TextEditor<br/>Document, Position, Range<br/>TextEditorError, TextEditorOperation, TextEditorOutcome"]
 ```
 
 A concept should become reusable only when it has a **real, meaningful boundary**:
@@ -245,7 +252,7 @@ The `DomainEngine` is the composition root that wraps all environments with App 
 
 ```mermaid
 flowchart TD
-    DE[DomainEngine] --> ENV[7 Environments<br/>Canvas, Timeline, Layers, NodeGraph, Table, Document, Scene]
+    DE[DomainEngine] --> ENV[8 Environments<br/>Canvas, Timeline, Layers, NodeGraph, Table, Document, Scene, Docking]
     DE --> HIST[HistoryStore<br/>undo/redo, transactions]
     DE --> TX[TransactionManager<br/>begin/commit/rollback]
     DE --> EVT[EventBus<br/>publish events]
@@ -344,7 +351,7 @@ src/domain_foundation/
 
 ## Next Steps
 
-- [03-environments.md](03-environments.md) — All 7 environments at a glance.
+- [03-environments.md](03-environments.md) — All 8 environments at a glance.
 - [04-canvas-2d.md](04-canvas-2d.md) — Canvas2D deep dive.
 - [11-relations.md](11-relations.md) — Relations system deep dive.
 - [13-domain-engine-integration.md](13-domain-engine-integration.md) — How the DomainEngine composes everything.

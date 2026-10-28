@@ -102,12 +102,12 @@ impl TaskHandler for CountTask {
         ctx: &TaskContext,
         _engine: &EngineRef,
     ) -> Result<TaskResult, TaskError> {
-        // Check cancellation (Phase 14)
+        // Check cancellation
         if ctx.is_cancelled() {
             return Ok(TaskResult::cancelled());
         }
 
-        // Report progress (Phase 14 — emits signal)
+        // Report progress (emits signal)
         ctx.output().progress(0.5);
 
         // Do work
@@ -200,7 +200,7 @@ impl ResourceLoader for TextLoader {
 // Register the loader
 engine.resource_manager().register_loader(Box::new(TextLoader));
 
-// Load (RAII handle auto-releases on drop — Phase 25)
+// Load (RAII handle auto-releases on drop)
 let handle = engine.resource_manager().load("text", "file:///welcome.txt")?;
 
 // Access the data
@@ -252,10 +252,10 @@ assert_eq!(engine.history_store().position(), 2);
 ## Step 8: Shut Down Cleanly
 
 ```rust
-// Stop — cancels all running tasks (Phase 26)
+// Stop — cancels all running tasks
 engine.stop()?;
 
-// Dispose — unloads all non-in-use resources (Phase 26)
+// Dispose — unloads all non-in-use resources
 engine.dispose()?;
 
 assert_eq!(engine.state(), RuntimeState::Disposed);

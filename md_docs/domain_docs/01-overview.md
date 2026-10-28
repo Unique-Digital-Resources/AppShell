@@ -2,40 +2,45 @@
 
 ## What Domain Foundation Is
 
-The **Domain Foundation** is a reusable domain capability library. It provides headless models for common domain organization patterns — 2D/3D spatial editing, timelines, layer hierarchies, node graphs, tables, text editing — plus a relation system for property propagation and optional utilities for filtering, tagging, querying, and more.
+The **Domain Foundation** is a reusable domain capability library. It provides headless models for common domain organization patterns — 2D/3D spatial editing, timelines, layer hierarchies, node graphs, tables, text editing, docking layouts — plus a relation system for property propagation and optional utilities for filtering, tagging, querying, and more.
 
 It sits **between** the generic App Engine (runtime infrastructure) and application-specific Domain Engines (domain meaning). The foundation defines *how objects are organized* and *how changes propagate*; it never defines *what the objects mean*.
 
 ```mermaid
 flowchart TD
-    subgraph DF[DOMAIN FOUNDATION]
+    subgraph DF["DOMAIN FOUNDATION"]
         direction TB
-        subgraph ENV[Environments]
-            C2D[Canvas2D]
-            TLM[Timeline]
-            LYR[Layers]
-            NG[NodeGraph]
-            V3D[Viewport3D]
-            TBL[Table]
-            TXT[TextEditor]
+
+        subgraph ENV["Environments"]
+            C2D["Canvas2D"]
+            TLM["Timeline"]
+            LYR["Layers"]
+            NG["NodeGraph"]
+            V3D["Viewport3D"]
+            TBL["Table"]
+            TXT["TextEditor"]
+            DCK["Docking"]
         end
-        subgraph REL[Relations]
-            DEF[Definitions]
-            EVAL[Evaluation]
-            PROP[Propagation]
+
+        subgraph REL["Relations"]
+            DEF["Definitions"]
+            EVAL["Evaluation"]
+            PROP["Propagation"]
         end
-        subgraph UTIL[Utilities]
-            FLT[Filtering]
-            QRY[Querying]
-            TAG[Tagging]
-            SRT[Sorting]
-            GRP[Grouping]
-            VAL[Validation]
-            BTCH[Batch]
+
+        subgraph UTIL["Utilities"]
+            FLT["Filtering"]
+            QRY["Querying"]
+            TAG["Tagging"]
+            SRT["Sorting"]
+            GRP["Grouping"]
+            VAL["Validation"]
+            BTCH["Batch"]
         end
     end
-    DF -->|composes| DE[DOMAIN ENGINE<br/>(app meaning)]
-    DE -->|integration| API[API / MCP / UI]
+
+    DF -->|composes| DE["DOMAIN ENGINE\n(app meaning)"]
+    DE -->|integration| API["API / MCP / UI"]
 ```
 
 **Zero external dependencies by default.** Optional `serde` for serialization.
@@ -55,6 +60,7 @@ flowchart TD
 | **Viewport3D** | 3D spatial organization with Euler angles, parent-child transform hierarchy, and spatial queries. |
 | **Table** | Tabular data with rows, columns, cells, merged cells, ordering, and swap operations. |
 | **TextEditor** | Headless text editing with Unicode scalar value positions, ranges, search/replace, and line/column mapping. |
+| **Docking** | Dockable panel layouts: panels, splits, tab groups, embed hosts — placements, splitter/region/floating sizing, and whole-layout integrity, fully headless. |
 
 ### Relations
 
@@ -112,14 +118,15 @@ Each environment owns its own types, errors, and operations. This is a deliberat
 
 ```mermaid
 flowchart TD
-    ENV[Environment<br/>(category, not a trait)]
-    ENV --> C2D[Canvas2D<br/>objects, transforms, z-order]
-    ENV --> TLM[Timeline<br/>tracks, clips, keyframes]
-    ENV --> LYR[Layers<br/>hierarchy, visibility]
-    ENV --> NG[NodeGraph<br/>nodes, ports, edges]
-    ENV --> V3D[Viewport3D<br/>3D transforms, hierarchy]
-    ENV --> TBL[Table<br/>rows, columns, cells]
-    ENV --> TXT[TextEditor<br/>document, positions, ranges]
+    ENV["Environment<br/>(category, not a trait)"]
+    ENV --> C2D["Canvas2D<br/>objects, transforms, z-order"]
+    ENV --> TLM["Timeline<br/>tracks, clips, keyframes"]
+    ENV --> LYR["Layers<br/>hierarchy, visibility"]
+    ENV --> NG["NodeGraph<br/>nodes, ports, edges"]
+    ENV --> V3D["Viewport3D<br/>3D transforms, hierarchy"]
+    ENV --> TBL["Table<br/>rows, columns, cells"]
+    ENV --> TXT["TextEditor<br/>document, positions, ranges"]
+    ENV --> DCK["Docking<br/>panels, splits, tabs, hosts"]
 ```
 
 A concept should become reusable **only when it has a real, meaningful boundary** — not because two environments look superficially similar in their UI representation.
@@ -172,6 +179,7 @@ flowchart LR
 | Viewport3D | ✅ headless | ❌ | ❌ | ❌ |
 | Table | ✅ + merged cells | ❌ | ❌ | ❌ |
 | TextEditor | ✅ Unicode-aware | ❌ | ❌ | ❌ |
+| Docking | ✅ headless layouts | ❌ | ❌ | ❌ |
 | Relations | ✅ priority + batch + cascading | ❌ | ❌ | ❌ |
 | Filtering | ✅ composable AND/OR/NOT | ❌ | ❌ | ❌ |
 | Undoable operations | ✅ all operations | ❌ | ❌ | ❌ |
@@ -270,7 +278,8 @@ The Domain Foundation is the **middle layer** — it provides reusable domain mo
 ## Next Steps
 
 - [02-architecture.md](02-architecture.md) — Architecture, dependency direction, composition rules.
-- [03-environments.md](03-environments.md) — All 7 environments at a glance.
+- [03-environments.md](03-environments.md) — All 8 environments at a glance.
+- [21-docking.md](21-docking.md) — Docking deep dive: panels, splits, tab groups, embed hosts.
 - [11-relations.md](11-relations.md) — Relations system deep dive.
 - [13-domain-engine-integration.md](13-domain-engine-integration.md) — How the DomainEngine composes everything.
 - [20-quick-start.md](20-quick-start.md) — 5-minute getting started guide.

@@ -102,7 +102,7 @@ flowchart TD
 
 Services initialize **before** plugins because plugins may depend on services being available.
 
-### Panic Isolation (Phase 24)
+### Panic Isolation
 
 If a service or plugin panics during `initialize()`, the panic is caught:
 
@@ -213,7 +213,7 @@ while !engine.stop_requested() {
                             .with_source("TaskExecutor")
                     );
                 } else if result.is_failed() && job.retry_policy().should_retry() {
-                    // Retry on failure (Phase 27)
+                    // Retry on failure
                     if let Some(retry_id) = engine.scheduler().handle_task_failure(&job) {
                         engine.scheduler().tick(); // Move retry job if delay expired
                     }
@@ -248,12 +248,12 @@ engine.stop()?;
 engine.stop()?;
 ```
 
-What happens during `stop()` (Phase 26 adds cleanup):
+What happens during `stop()`:
 
 ```mermaid
 flowchart TD
     A["stop()"] --> B["1. stop_requested = true"]
-    B --> C["2. TaskManager.cancel_all()<br/>(Phase 26: cancel all running tasks)"]
+    B --> C["2. TaskManager.cancel_all()<br/>(cancel all running tasks)"]
     C --> D1["For each Running task"]
     D1 --> D2["Cancel its CancellationToken"]
     D1 --> D3["Set task state to Cancelled"]
@@ -268,7 +268,7 @@ flowchart TD
 
 The reverse ordering is critical: plugins stop before services because plugins may depend on services being available during their shutdown.
 
-### Task Cancellation on Stop (Phase 26)
+### Task Cancellation on Stop
 
 ```rust
 // In TaskManager::cancel_all():
@@ -306,7 +306,7 @@ After `stop()`, no tasks should be in `Running` state.
 engine.dispose()?;
 ```
 
-What happens during `dispose()` (Phase 26 adds cleanup):
+What happens during `dispose()`:
 
 ```mermaid
 flowchart TD
@@ -314,7 +314,7 @@ flowchart TD
     B --> B1["Plugins transition:<br/>Stopped → Unloaded"]
     B1 --> C["2. ServiceManager.dispose_all()<br/>(Panic-isolated)"]
     C --> C1["Services transition:<br/>Stopped → Disposed"]
-    C1 --> D["3. ResourceManager.unload_all()<br/>(Phase 26: unload non-in-use resources)"]
+    C1 --> D["3. ResourceManager.unload_all()<br/>(unload non-in-use resources)"]
     D --> E1["For each cached resource"]
     E1 --> E2["If not in use (ref_count == 0):<br/>remove from cache"]
     E1 --> E3["If in use: skip<br/>(resource has active handles)"]
@@ -338,7 +338,7 @@ engine.stop()?;        // Error: disposed
 engine.dispose()?;     // Error: disposed
 ```
 
-### Resource Cleanup on Dispose (Phase 26)
+### Resource Cleanup on Dispose
 
 ```rust
 // In ResourceManager::unload_all():

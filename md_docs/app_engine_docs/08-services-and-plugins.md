@@ -103,7 +103,7 @@ Registered → Initialized → Running → Stopped → Disposed
 ```
 
 ```rust
-// Individual lifecycle (panic-isolated — Phase 24)
+// Individual lifecycle (panic-isolated)
 engine.service_manager_mut().initialize(service_id, &engine_ref)?;
 assert_eq!(engine.service_manager().state(service_id), Some(ServiceState::Initialized));
 
@@ -142,7 +142,7 @@ engine.stop()?;        // → stop_all() (services → Stopped, reverse order)
 engine.dispose()?;     // → dispose_all() (services → Disposed, reverse order)
 ```
 
-### Panic Isolation (Phase 24)
+### Panic Isolation
 
 If a service panics during lifecycle, it doesn't crash the engine:
 
@@ -341,10 +341,10 @@ let manifest = PluginManifest::new("image-plugin", "Image Plugin")
     .with_capability("commands")      // provides commands
     .with_capability("resources")     // provides resource loaders
     .with_capability("services")      // provides services
-    .with_permissions(PluginPermissions::new(    // Phase 17
+    .with_permissions(PluginPermissions::new( 
         LOAD_RESOURCES | REGISTER_COMMANDS | SUBSCRIBE_EVENTS
     ))
-    .with_engine_api_version(Version::new(1, 0, 0));  // Phase 20
+    .with_engine_api_version(Version::new(1, 0, 0));
 ```
 
 ### Plugin Registration
@@ -370,7 +370,7 @@ Discovered → Loaded → Initialized → Started → Stopped → Unloaded
 ```
 
 ```rust
-// Individual lifecycle (panic-isolated — Phase 24)
+// Individual lifecycle (panic-isolated)
 engine.plugin_manager_mut().initialize(plugin_id, &engine_ref)?;
 assert_eq!(engine.plugin_manager().state(plugin_id), Some(PluginState::Initialized));
 
@@ -405,7 +405,7 @@ engine.stop()?;        // → stop plugins first, then stop services
 engine.dispose()?;     // → dispose plugins first, then dispose services
 ```
 
-### Panic Isolation (Phase 24)
+### Panic Isolation
 
 If a plugin panics during lifecycle, it doesn't crash the engine:
 
@@ -486,7 +486,7 @@ engine.plugin_manager_mut().initialize_all(&engine_ref)
 
 ---
 
-## Part 3: Plugin Permissions (Phases 17 + 28)
+## Part 3: Plugin Permissions
 
 ### Permission Flags
 
@@ -534,7 +534,7 @@ assert!(!engine.plugin_manager().can_load_resources(id));
 assert!(!engine.plugin_manager().can_publish_events(id));
 ```
 
-### PermissionCheckedEngineRef (Phase 28)
+### PermissionCheckedEngineRef
 
 For explicit permission enforcement, wrap `EngineRef` with permission checks:
 
@@ -612,7 +612,7 @@ engine.plugin_manager_mut().dispose(id)?;
 
 ---
 
-## Part 4: Dynamic Plugin Loading (Phase 17)
+## Part 4: Dynamic Plugin Loading
 
 ### DynamicPluginLoader
 

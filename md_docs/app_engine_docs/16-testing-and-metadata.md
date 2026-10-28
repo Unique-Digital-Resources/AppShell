@@ -11,7 +11,7 @@ Metadata    = Version, PayloadSchema — describe and version command/task/plugi
 
 ---
 
-## Part 1: Testing Infrastructure (Phase 20)
+## Part 1: Testing Infrastructure
 
 ### Why Mocks?
 
@@ -246,7 +246,7 @@ fn signal_is_emitted() {
 
 ---
 
-## Part 2: Metadata (Phase 20)
+## Part 2: Metadata
 
 ### Version
 

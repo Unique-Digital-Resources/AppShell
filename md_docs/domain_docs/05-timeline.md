@@ -8,14 +8,15 @@ Headless temporal editing model. Provides tracks, clips, keyframes, and time-bas
 
 ```mermaid
 flowchart TD
-    subgraph TLM[Timeline]
-        TL[Timeline<br/>tracks + track_order + id counters]
-        TR[Track<br/>id + clips (sorted)]
-        CL[Clip<br/>id + start + duration + keyframes]
-        KF[Keyframe<br/>id + time + value + interpolation]
+    subgraph TLM["Timeline"]
+        TL["Timeline<br/>tracks + track_order + id counters"]
+        TR["Track<br/>id + clips (sorted)"]
+        CL["Clip<br/>id + start + duration + keyframes"]
+        KF["Keyframe<br/>id + time + value + interpolation"]
     end
-    TLM -->|operations| OPS[TimelineOperation]
-    OPS -->|apply| OUT[TimelineOutcome]
+
+    TLM -->|operations| OPS["TimelineOperation"]
+    OPS -->|apply| OUT["TimelineOutcome"]
 ```
 
 ---

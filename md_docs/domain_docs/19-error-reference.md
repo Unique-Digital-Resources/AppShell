@@ -194,6 +194,153 @@ pub enum TextEditorError {
 
 ---
 
+### Docking
+
+```text
+domain_foundation::environments::docking::DockingError
+```
+
+A rejected request is the *whole* consequence: the layout is untouched (candidate-clone atomicity), and no history entry or event is recorded (PRD §8.2, §10.5).
+
+#### Identity & creation (Phase 2)
+
+| Variant | Fields | When | How to handle |
+|---|---|---|---|
+| `DockNotFound` | `{ id }` | Operation on a non-existent dock | Check `layout.contains(id)` |
+| `UnknownReference` | `{ id }` | A created placement references a dock missing from the layout | Create the referenced dock first |
+| `DuplicateMembership` | `{ id }` | The same dock appears twice in one container collection | Use distinct docks |
+| `AlreadyPlaced` | `{ id }` | An already-placed dock used as if unplaced (PRD DM-07: one placement per dock) | Detach it (an operation) before re-placing, or use a different dock |
+| `InsufficientChildren` | `{ minimum, found }` | A split (≥ 2 children) or tab group (≥ 1 member) created below its minimum | Pass enough children/members |
+| `SizeCountMismatch` | `{ sizes, children }` | Weight count ≠ child count (PRD §9.2) | Match `SplitSizes` to the child list |
+| `ActiveIndexOutOfRange` | `{ index, member_count }` | `active` (or `SetActiveTab`) outside `members` | Check `members.len()` first |
+| `RootAlreadySet` | `{ current }` | `set_root(Some(id))` while a root is designated | `set_root(None)` first — re-rooting stays explicit |
+
+#### Layout invariants (Phase 3)
+
+| Variant | Fields | When | How to handle |
+|---|---|---|---|
+| `OrphanDock` | `{ id }` | A dock exists but occupies no placement | Keep docks placed or remove them; transient only mid-operation |
+| `DuplicatePlacement` | `{ id }` | A dock occupies more than one placement | Never build such state; on import the gate rejects it |
+| `InvalidRoot` | `{ id }` | The designated root is also placed inside a container | The root's only correct slot is `DockSlot::Root` |
+| `MissingRoot` | `{ docks }` | The layout holds docks but designates no root | Designate a root, or `clear()` for the explicit empty layout |
+| `CycleDetected` | `{ id }` | A structural containment cycle (split/tab/regions/floating all count) | Pre-check with the self-inclusive `layout.is_descendant(target, source)` |
+| `InvalidSizeState` | `{ split, index }` | Imported weight not finite / not strictly positive (PRD §9.2) | Fix weights before import — restore goes through the validate gate |
+
+#### Operations (Phase 4)
+
+| Variant | Fields | When | How to handle |
+|---|---|---|---|
+| `IneligibleDock` | `{ id }` | A tab embedding/operation on a non-panel (v1 membership is panels only); embed/promote targets that are splits or tab groups (they cannot host or promote) | Operation on a panel, or pick a host/panel target |
+| `NotSplittable` | `{ id }` | Directional insert beside a floating dock (no row/column meaning in the floating collection) | Re-dock the floater first, or embed/tab-target it |
+| `NotATabGroup` | `{ id }` | A tab-group argument names a non-tab-group dock | Pass the group's id (read it from the `TabJoined` outcome) |
+| `TabIndexOutOfRange` | `{ index, member_count }` | `ReorderTab`/`SetActiveTab` argument outside the member list | Check `members.len()` |
+
+#### Splitter sizing (Phase 6)
+
+| Variant | Fields | When | How to handle |
+|---|---|---|---|
+| `NotASplit` | `{ id }` | A resize names a non-split container | Pass the split container's id |
+| `SplitChildIndexOutOfRange` | `{ index, child_count }` | The resize pair `[first, first + 1]` runs past the child list | `first + 1 < children.len()` |
+| `SizeBoundViolation` | `{ split, index }` | The request violates a carried minimum or the sizing invariant — the rejection policy: never clamped | Send a reachable pair weight within the bounds (bound endpoints are honored inclusively) |
+
+#### Embedding & host lifecycle (Phase 7)
+
+| Variant | Fields | When | How to handle |
+|---|---|---|---|
+| `NotAnEmbedHost` | `{ id }` | A host argument names a split or tab group (remember: `Embed`/`PromoteHost` auto-promote *panels*; splits/tab groups cannot host) | Embed into a host, or a promotable panel |
+| `RegionOccupied` | `{ host, edge }` | Embedding into an occupied edge region (an occupant is never silently replaced) | Choose a free region (check `host_regions().on(edge)`) |
+| `RegionUnoccupied` | `{ host, edge }` | Resizing an empty edge region (no inner boundary, no stored weight) | Resize only occupied regions |
+| `RegionBoundViolation` | `{ host, edge }` | The requested region weight violates its bounds (PRD §9.3 minimum / finite-positive invariant) | Send a reachable weight within bounds |
+| `InvalidRegionState` | `{ host, edge }` | Imported region weight not finite/positive | Fix region state before import |
+
+#### Floating state (Phase 8)
+
+| Variant | Fields | When | How to handle |
+|---|---|---|---|
+| `FloatingIndexOutOfRange` | `{ index, entry_count }` | `SetFloatingRect` names an index outside the floating collection | Check `dock.floating().len()` |
+| `FloatingBoundViolation` | `{ host, index }` | The rect violates the min sizes, the rect invariant (finite, `x`/`y` ≥ 0, `w`/`h` > 0), or the host-bounds rule (`x + w ≤ 1`, `y + h ≤ 1`) | Send a rect within bounds (endpoints inclusive) |
+| `InvalidFloatingState` | `{ host, index }` | An imported rect violates the rect invariant or host-bounds rule | Fix floating state before import |
+
+```rust
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum DockingError {
+    // identity & creation
+    DockNotFound { id: DockId },
+    UnknownReference { id: DockId },
+    DuplicateMembership { id: DockId },
+    AlreadyPlaced { id: DockId },
+    InsufficientChildren { minimum: usize, found: usize },
+    SizeCountMismatch { sizes: usize, children: usize },
+    ActiveIndexOutOfRange { index: usize, member_count: usize },
+    RootAlreadySet { current: DockId },
+    // layout invariants
+    OrphanDock { id: DockId },
+    DuplicatePlacement { id: DockId },
+    InvalidRoot { id: DockId },
+    MissingRoot { docks: usize },
+    CycleDetected { id: DockId },
+    InvalidSizeState { split: DockId, index: usize },
+    // operations
+    IneligibleDock { id: DockId },
+    NotSplittable { id: DockId },
+    NotATabGroup { id: DockId },
+    TabIndexOutOfRange { index: usize, member_count: usize },
+    // splitter sizing
+    NotASplit { id: DockId },
+    SplitChildIndexOutOfRange { index: usize, child_count: usize },
+    SizeBoundViolation { split: DockId, index: usize },
+    // embedding & host lifecycle
+    NotAnEmbedHost { id: DockId },
+    RegionOccupied { host: DockId, edge: EdgeRegion },
+    RegionUnoccupied { host: DockId, edge: EdgeRegion },
+    RegionBoundViolation { host: DockId, edge: EdgeRegion },
+    InvalidRegionState { host: DockId, edge: EdgeRegion },
+    // floating state
+    FloatingIndexOutOfRange { index: usize, entry_count: usize },
+    FloatingBoundViolation { host: DockId, index: usize },
+    InvalidFloatingState { host: DockId, index: usize },
+}
+```
+
+**Display strings** (each names the offending dock/region/index so a drag can be re-scoped, PRD §10.5):
+
+| Variant | Display |
+|---|---|
+| `DockNotFound` | `"no dock with id {id}"` |
+| `UnknownReference` | `"dock reference {id} does not exist in the layout"` |
+| `DuplicateMembership` | `"dock {id} appears more than once in one placement"` |
+| `AlreadyPlaced` | `"dock {id} already occupies a placement"` |
+| `InsufficientChildren` | `"structure expects at least {minimum} children, found {found}"` |
+| `SizeCountMismatch` | `"size count {sizes} does not match child count {children}"` |
+| `ActiveIndexOutOfRange` | `"active tab index {index} out of range (member count {member_count})"` |
+| `RootAlreadySet` | `"root is already set to {current} (clear the root first)"` |
+| `OrphanDock` | `"dock {id} has no placement (orphan)"` |
+| `DuplicatePlacement` | `"dock {id} occupies more than one placement"` |
+| `InvalidRoot` | `"dock {id} is the root but is also placed in a container"` |
+| `MissingRoot` | `"layout holds {docks} docks but designates no root"` |
+| `CycleDetected` | `"structural cycle detected at {id}"` |
+| `InvalidSizeState` | `"sizing weight {index} of {split} is invalid (must be finite and strictly positive)"` |
+| `IneligibleDock` | `"dock {id} does not qualify for this operation (v1 tab membership is panels only)"` |
+| `NotSplittable` | `"dock {id} is in a floating placement: directional insertion is not defined for floating docks"` |
+| `NotATabGroup` | `"dock {id} is not a tab group"` |
+| `TabIndexOutOfRange` | `"tab index {index} out of range (member count {member_count})"` |
+| `NotASplit` | `"dock {id} is not a split container"` |
+| `SplitChildIndexOutOfRange` | `"split child index {index} out of range (child count {child_count})"` |
+| `SizeBoundViolation` | `"resize rejected: weight {index} of {split} would violate its logical size bounds"` |
+| `NotAnEmbedHost` | `"dock {id} is not an embed host"` |
+| `RegionOccupied` | `"{edge:?} region of {host} is already occupied (embedding never replaces an occupant)"` |
+| `RegionUnoccupied` | `"{edge:?} region of {host} is unoccupied and cannot be resized"` |
+| `RegionBoundViolation` | `"region resize rejected: the {edge:?} region of {host} would violate its logical size bounds"` |
+| `InvalidRegionState` | `"sizing weight of the {edge:?} region of {host} is invalid (must be finite and strictly positive)"` |
+| `FloatingIndexOutOfRange` | `"floating index {index} out of range (entry count {entry_count})"` |
+| `FloatingBoundViolation` | `"floating rect rejected: entry {index} of {host} would violate its logical bounds"` |
+| `InvalidFloatingState` | `"logical rect of floating entry {index} of {host} is invalid (must be finite, non-empty, and within the host's bounds)"` |
+
+!!! note "Rejection, never clamping"
+    The three bound-violation variants express the environment's defined constraint policy (PRD §9.3): a conflicting resize/rect request is refused with exactly this error — never silently clamped, never resolved into invalid stored state.
+
+---
+
 ## Relations
 
 ```text
@@ -242,6 +389,7 @@ pub enum DomainError {
     Table(TableError),
     TextEditor(TextEditorError),
     Viewport3D(Viewport3DError),
+    Docking(DockingError),
 }
 ```
 
@@ -328,8 +476,9 @@ match engine.execute_canvas(CanvasOperation::Move { id, translation }) {
 | Viewport3D | `Viewport3DError` | 3 | ✅ |
 | Table | `TableError` | 4 | ✅ |
 | TextEditor | `TextEditorError` | 2 | ✅ |
+| Docking | `DockingError` | 29 | ✅ |
 | Relations | `RelationError` | 3 | ✅ |
-| Domain Engine | `DomainError` | 7 (wraps all above) | ❌ (contains non-Eq types) |
+| Domain Engine | `DomainError` | 8 (wraps all above) | ❌ (contains non-Eq types) |
 
 All error types implement:
 - `Debug`

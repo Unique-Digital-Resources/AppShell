@@ -17,7 +17,7 @@ Default permissions are `FULL_ACCESS` — backward compatible.
 
 ---
 
-## Part 1: Permission Flags (Phase 17)
+## Part 1: Permission Flags
 
 ### All Permissions
 
@@ -179,7 +179,7 @@ assert!(!mgr.can_register_commands(bogus));
 
 ---
 
-## Part 4: PermissionCheckedEngineRef (Phase 28)
+## Part 4: PermissionCheckedEngineRef
 
 ### What It Is
 
@@ -437,7 +437,7 @@ assert_std_error(PluginSecurityError::PermissionDenied {
 
 ---
 
-## Part 8: Dynamic Plugin Loading (Phase 17)
+## Part 8: Dynamic Plugin Loading
 
 ### DynamicPluginLoader
 
