@@ -37,6 +37,13 @@ mod concurrency_test;
 mod proptest_test;
 mod canvas_command_handler_test;
 mod relation_value_source_test;
+mod docking_test;
+mod docking_operations_test;
+mod docking_normalization_test;
+mod docking_validation_test;
+mod docking_sizing_test;
+mod docking_embedding_test;
+mod docking_floating_test;
 #[cfg(feature = "serde")]
 mod serde_roundtrip_test;
 mod app_engine_lifecycle_test;
