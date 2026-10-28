@@ -30,6 +30,12 @@ mod configuration_error_test;
 mod context_manager_test;
 mod context_test;
 mod developer_experience_test;
+mod docking_undo_redo_test;
+mod docking_sequence_test;
+mod docking_history_registry_test;
+mod docking_interaction_contract_test;
+#[cfg(feature = "serde")]
+mod docking_persistence_test;
 mod engine_error_test;
 mod event_bus_test;
 mod event_test;
