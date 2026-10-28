@@ -1,8 +1,19 @@
 //! # Domain Engine
 //!
 //! Application-specific domain logic composing Canvas2D + Timeline + Layers
-//! + NodeGraph + Table + TextEditor + Viewport3D with App Engine history,
-//! transactions, events, and signals.
+//! + NodeGraph + Table + TextEditor + Viewport3D + Docking with App Engine
+//! history, transactions, events, and signals.
+//!
+//! Real undo rides one **position-indexed executed-step registry**
+//! (`ExecutedStep`) — every replayable step sits at the same vec index
+//! as its history entry, entries recorded without a replay mechanism (the
+//! plain-apply family, the docking restore) hold `None` gaps — so
+//! interleaved environments replay in recorded order instead of relying
+//! on per-environment vectors (the Phase-10 R-9-1 unification). Docking
+//! persistence rides the established serialization conventions: the
+//! model's own serde derive is the persisted form, and
+//! [`DomainEngine::restore_docking`] validates the submitted model (the
+//! Phase-3 gate) before adopting it.
 
 pub mod operations;
 
@@ -31,8 +42,44 @@ use crate::domain_foundation::environments::text_editor::{
 use crate::domain_foundation::environments::viewport_3d::{
     Scene, Viewport3DError, Viewport3DOperation, Viewport3DOutcome,
 };
+use crate::domain_foundation::environments::docking::{
+    DockLayout, DockingError, DockingOperation, DockingOutcome,
+};
 use operations::canvas_operations::ExecutedCanvasOperation;
+use operations::docking_operations::ExecutedDockingOperation;
 use std::sync::Arc;
+
+/// One executed real-undo step, stored **position-aligned** with its
+/// history entry (the Phase-10 R-9-1 unification: a single
+/// `Vec<Option<_>>` registry indexed by history position instead of a
+/// parallel vector per environment). Environments that record without a
+/// replay mechanism (the plain-apply family) and non-replayable actions
+/// (a restore) leave the `None` gap in the corresponding slot, so the
+/// registry always mirrors the history vec 1:1.
+#[derive(Debug)]
+enum ExecutedStep {
+    Canvas(ExecutedCanvasOperation),
+    Docking(ExecutedDockingOperation),
+}
+
+impl ExecutedStep {
+    fn undo(&self, canvas: &mut Canvas, docking: &mut DockLayout) -> Result<(), DomainError> {
+        match self {
+            ExecutedStep::Canvas(executed) => executed.undo(canvas).map_err(DomainError::from),
+            ExecutedStep::Docking(executed) => executed.undo(docking).map_err(DomainError::from),
+        }
+    }
+
+    fn redo(&self, canvas: &mut Canvas, docking: &mut DockLayout) -> Result<(), DomainError> {
+        match self {
+            ExecutedStep::Canvas(executed) => executed
+                .redo(canvas)
+                .map_err(DomainError::from)
+                .map(|_| ()),
+            ExecutedStep::Docking(executed) => executed.redo(docking).map_err(DomainError::from),
+        }
+    }
+}
 
 #[derive(Debug)]
 pub enum DomainError {
@@ -43,6 +90,7 @@ pub enum DomainError {
     Table(TableError),
     TextEditor(TextEditorError),
     Viewport3D(Viewport3DError),
+    Docking(DockingError),
 }
 
 impl From<CanvasError> for DomainError { fn from(e: CanvasError) -> Self { Self::Canvas(e) } }
@@ -52,6 +100,7 @@ impl From<NodeGraphError> for DomainError { fn from(e: NodeGraphError) -> Self {
 impl From<TableError> for DomainError { fn from(e: TableError) -> Self { Self::Table(e) } }
 impl From<TextEditorError> for DomainError { fn from(e: TextEditorError) -> Self { Self::TextEditor(e) } }
 impl From<Viewport3DError> for DomainError { fn from(e: Viewport3DError) -> Self { Self::Viewport3D(e) } }
+impl From<DockingError> for DomainError { fn from(e: DockingError) -> Self { Self::Docking(e) } }
 
 impl std::fmt::Display for DomainError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -63,6 +112,7 @@ impl std::fmt::Display for DomainError {
             DomainError::Table(e) => write!(f, "table: {e}"),
             DomainError::TextEditor(e) => write!(f, "text_editor: {e}"),
             DomainError::Viewport3D(e) => write!(f, "viewport_3d: {e}"),
+            DomainError::Docking(e) => write!(f, "docking: {e}"),
         }
     }
 }
@@ -77,13 +127,14 @@ pub struct DomainEngine {
     table: Table,
     document: Document,
     scene: Scene,
+    docking: DockLayout,
     history: HistoryStore,
     transaction_start_position: usize,
     transaction_manager: TransactionManager,
     event_bus: EventBus,
     signal_bus: Option<Arc<SignalBus>>,
     active_transaction: Option<TransactionId>,
-    executed_canvas: Vec<ExecutedCanvasOperation>,
+    executed_steps: Vec<Option<ExecutedStep>>,
     saved_position: usize,
     max_history: usize,
     compound_depth: usize,
@@ -100,13 +151,14 @@ impl DomainEngine {
             table: Table::new(),
             document: Document::new(),
             scene: Scene::new(),
+            docking: DockLayout::new(),
             history: HistoryStore::new(),
             transaction_manager: TransactionManager::new(),
             event_bus: EventBus::new(),
             signal_bus: None,
             active_transaction: None,
             transaction_start_position: 0,
-            executed_canvas: Vec::new(),
+            executed_steps: Vec::new(),
             saved_position: 0,
             max_history: 0,
             compound_depth: 0,
@@ -133,6 +185,7 @@ impl DomainEngine {
     pub fn table(&self) -> &Table { &self.table }
     pub fn document(&self) -> &Document { &self.document }
     pub fn scene(&self) -> &Scene { &self.scene }
+    pub fn docking(&self) -> &DockLayout { &self.docking }
     pub fn history(&self) -> &HistoryStore { &self.history }
     pub fn event_bus(&self) -> &EventBus { &self.event_bus }
     pub fn event_bus_mut(&mut self) -> &mut EventBus { &mut self.event_bus }
@@ -180,6 +233,24 @@ impl DomainEngine {
         }
     }
 
+    // --- Executed-step registry (Phase 10, R-9-1) ---
+
+    /// Place an executed step at its **history position**.
+    ///
+    /// Single position-indexed registry for all real-undo environments:
+    /// `executed_steps[i]` is `Some(step)` exactly when history entry `i`
+    /// carries a replay step, and the `None` gap otherwise (plain-apply
+    /// environments, a restore). `undo` / `redo` / transaction rollback
+    /// walk history positions once and dispatch on the step, so
+    /// interleaved environments stay aligned by construction instead of
+    /// relying on per-environment vectors (the Phase-9 R-9-1 follow-up).
+    fn push_executed_step(&mut self, pos: usize, step: ExecutedStep) {
+        while self.executed_steps.len() < pos {
+            self.executed_steps.push(None);
+        }
+        self.executed_steps.push(Some(step));
+    }
+
     // --- Canvas operations ---
 
     pub fn execute_canvas(
@@ -187,7 +258,7 @@ impl DomainEngine {
         operation: CanvasOperation,
     ) -> Result<CanvasOutcome, DomainError> {
         let pos = self.history.position();
-        self.executed_canvas.truncate(pos);
+        self.executed_steps.truncate(pos);
 
         let executed = match ExecutedCanvasOperation::execute(&mut self.canvas, operation) {
             Ok(e) => e,
@@ -204,7 +275,7 @@ impl DomainEngine {
             entry = entry.with_transaction(tx_id);
         }
         self.history.append(entry);
-        self.executed_canvas.push(executed);
+        self.push_executed_step(pos, ExecutedStep::Canvas(executed));
 
         self.enforce_history_limit();
         self.publish(
@@ -226,7 +297,97 @@ impl DomainEngine {
         })
     }
 
-    // --- D5: Layers operations ---
+    // --- D5: Docking operations ---
+
+    pub fn execute_docking(
+        &mut self,
+        operation: DockingOperation,
+    ) -> Result<DockingOutcome, DomainError> {
+        let pos = self.history.position();
+        self.executed_steps.truncate(pos);
+
+        let executed = match ExecutedDockingOperation::execute(&mut self.docking, operation) {
+            Ok(e) => e,
+            Err(e) => {
+                let err: DomainError = e.into();
+                self.check_auto_rollback(&err);
+                return Err(err);
+            }
+        };
+        let outcome = executed.outcome();
+
+        let mut entry = executed.history_entry();
+        if let Some(tx_id) = self.active_transaction {
+            entry = entry.with_transaction(tx_id);
+        }
+        self.history.append(entry);
+        self.push_executed_step(pos, ExecutedStep::Docking(executed));
+
+        self.enforce_history_limit();
+        self.publish(
+            docking_outcome_event(&outcome),
+            docking_outcome_signal(&outcome),
+        );
+
+        Ok(outcome)
+    }
+
+    // --- D5b: Docking persistence (Phase 10) ---
+
+    /// Restore a persisted docking layout (PRD §12.3).
+    ///
+    /// The persisted form is the environment's own serde derive — the
+    /// established serialization convention (every sibling environment
+    /// ships derive-only serde; the host application serializes the
+    /// cloned [`DockLayout`] and parses the payload back). The submitted
+    /// model is validated **before** it is trusted: the Phase-3 gate
+    /// (`DockLayout::validate`) *is* the imported-state report — first
+    /// error, deterministic scan (root designation → reference validity
+    /// + category parity, including the region-weight and floating-rect
+    /// steady-state rules → placement multiplicity → acyclicity).
+    ///
+    /// **Rejection, never repair.** An invalid layout is declined
+    /// wholesale (`DomainError::Docking`) and the engine's current
+    /// layout, history, and events are untouched; v1 defines no missing-
+    /// or outdated-reference recovery policy (PRD §12.3 SHOULD: prefer a
+    /// meaningful error over silent, undocumented repair). The
+    /// compatibility strategy is the form's own restore-compat design:
+    /// `serde(default)` fields restore absent optional values (region
+    /// weights at the baseline, persistent hosts, the collapse flag,
+    /// floating rects), unknown payload fields are tolerated by serde,
+    /// and anything structurally invalid is rejected — there is no
+    /// version envelope or migration in v1.
+    ///
+    /// A valid layout is adopted **verbatim** — dock ids and the id
+    /// counter ride inside the form (the Phase-1 §7.2 resolution:
+    /// shipped, not re-issued), so a restored layout is collision-free
+    /// by construction (DM-02/DM-04) and continued mutation keeps
+    /// issuing fresh ids. Panel content is an opaque application-owned
+    /// `ContentRef` — the host application remains responsible for
+    /// restoring actual content (PRD §12.4). The adopt is recorded as a
+    /// **non-undoable** `"docking.restored"` history entry (a trusted
+    /// import, not a reversible operation — the restored file is the
+    /// anchor), the engine is marked saved, and the adopt is published
+    /// as `"docking.restored"` (event + signal).
+    ///
+    /// Registry note (R-9-1): the restore's history slot holds `None` —
+    /// it is not a replayable step. History recorded *before* a restore
+    /// describes the pre-restore session; post-restore docking
+    /// operations replay against the restored layout, and an undo whose
+    /// replay would drift out of validity surfaces as
+    /// `DomainError::Docking` from the replay's validate guard.
+    pub fn restore_docking(&mut self, layout: DockLayout) -> Result<(), DomainError> {
+        layout.validate().map_err(DomainError::from)?;
+        self.docking = layout;
+
+        let entry = HistoryEntry::new("docking.restored").non_undoable();
+        self.history.append(entry);
+        self.mark_saved();
+        self.publish("docking.restored", "docking.restored");
+        Ok(())
+    }
+
+    // --- D6: Layers operations ---
 
     pub fn execute_layers(
         &mut self,
@@ -407,18 +568,20 @@ impl DomainEngine {
         self.active_transaction = None;
         let result = self.transaction_manager.rollback();
         if let Some(tx_id) = tx_id {
-            // Undo canvas operations from the transaction start to now.
+            // Undo the real-undo environments' operations from the
+            // transaction start to now — dispatch on the one
+            // position-indexed registry.
             let current_pos = self.history.position();
             for i in (self.transaction_start_position..current_pos).rev() {
-                if let Some(executed) = self.executed_canvas.get(i) {
-                    let _ = executed.undo(&mut self.canvas);
+                if let Some(Some(step)) = self.executed_steps.get(i) {
+                    let _ = step.undo(&mut self.canvas, &mut self.docking);
                 }
             }
             // Remove transaction entries from history.
             self.history.remove_transaction(tx_id);
             // Truncate the executed list to the new position.
             let new_pos = self.history.position();
-            self.executed_canvas.truncate(new_pos);
+            self.executed_steps.truncate(new_pos);
         }
         result
     }
@@ -471,8 +634,8 @@ impl DomainEngine {
         let pos_after = self.history.position();
 
         for i in (pos_after..pos_before).rev() {
-            if let Some(executed) = self.executed_canvas.get(i) {
-                executed.undo(&mut self.canvas)?;
+            if let Some(Some(step)) = self.executed_steps.get(i) {
+                step.undo(&mut self.canvas, &mut self.docking)?;
             }
         }
 
@@ -487,8 +650,8 @@ impl DomainEngine {
         let pos_after = self.history.position();
 
         for i in pos_before..pos_after {
-            if let Some(executed) = self.executed_canvas.get(i) {
-                executed.redo(&mut self.canvas)?;
+            if let Some(Some(step)) = self.executed_steps.get(i) {
+                step.redo(&mut self.canvas, &mut self.docking)?;
             }
         }
 
@@ -529,6 +692,34 @@ fn signal_name_for_canvas_outcome(outcome: &CanvasOutcome) -> &'static str {
         CanvasOutcome::Transformed { .. } => "canvas.object.transformed",
         CanvasOutcome::Removed { .. } => "canvas.object.removed",
         _ => "canvas.changed",
+    }
+}
+
+fn docking_outcome_event(outcome: &DockingOutcome) -> &'static str {
+    match outcome {
+        DockingOutcome::Created { .. } => "docking.dock.created",
+        DockingOutcome::InsertedBeside { .. } => "docking.dock.inserted_beside",
+        DockingOutcome::TabJoined { .. } => "docking.tab.joined",
+        DockingOutcome::TabReordered { .. } => "docking.tab.reordered",
+        DockingOutcome::ActiveTabSelected { .. } => "docking.tab.active_selected",
+        DockingOutcome::Removed { .. } => "docking.dock.removed",
+        DockingOutcome::SiblingsResized { .. } => "docking.split.resized",
+        DockingOutcome::DockCollapsedSet { .. } => "docking.panel.collapsed_set",
+        DockingOutcome::Embedded { .. } => "docking.dock.embedded",
+        DockingOutcome::HostPromoted { .. } => "docking.host.promoted",
+        DockingOutcome::RegionResized { .. } => "docking.region.resized",
+        DockingOutcome::FloatingRectSet { .. } => "docking.floating.rect_set",
+    }
+}
+
+fn docking_outcome_signal(outcome: &DockingOutcome) -> &'static str {
+    match outcome {
+        DockingOutcome::Created { .. } => "docking.dock.created",
+        DockingOutcome::Removed { .. } => "docking.dock.removed",
+        DockingOutcome::SiblingsResized { .. } => "docking.split.resized",
+        DockingOutcome::RegionResized { .. } => "docking.region.resized",
+        DockingOutcome::FloatingRectSet { .. } => "docking.floating.rect_set",
+        _ => "docking.changed",
     }
 }
 
