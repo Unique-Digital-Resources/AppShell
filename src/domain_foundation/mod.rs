@@ -8,7 +8,7 @@
 //!
 //! - [`environments`] — reusable models for particular kinds of domain
 //!   organisation or editing context (Canvas2D, Timeline, Layers, Table,
-//!   NodeGraph, TextEditor, Viewport3D, ...).
+//!   NodeGraph, TextEditor, Viewport3D, Docking, ...).
 //! - [`relations`] — reusable mechanisms describing how changes to one
 //!   object or property affect other objects or properties.
 //! - [`utilities`] — optional capabilities (filtering, tagging, querying,

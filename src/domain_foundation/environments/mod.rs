@@ -23,7 +23,8 @@
 //!    ├── NodeGraph       (Phase 7)
 //!    ├── Viewport3D      (Phase 8)
 //!    ├── Table           (Phase 9)
-//!    └── TextEditor     (Phase 10)
+//!    ├── TextEditor      (Phase 10)
+//!    └── Docking         (current_state/plan.md Phase 02 — model present)
 //! ```
 //!
 //! ## Natural composition is allowed
@@ -48,6 +49,7 @@ pub mod node_graph;
 pub mod viewport_3d;
 pub mod table;
 pub mod text_editor;
+pub mod docking;
 
 // All environments implemented (Phases 2–10).
 // No `Environment` trait is declared here. Intentional.
